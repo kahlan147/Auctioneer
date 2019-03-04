@@ -1,3 +1,5 @@
+import messaging.MessageSender;
+
 import javax.swing.*;
 
 /**
@@ -16,6 +18,6 @@ public class AuctionOwnerForm {
     }
 
     public AuctionOwnerForm(){
-
+        MessageSender messageSender = new MessageSender();
     }
 }

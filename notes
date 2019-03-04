@@ -1,2 +1,5 @@
-https://www.rabbitmq.com/install-windows.html
-https://www.rabbitmq.com/tutorials/tutorial-one-java.html
+https://www.rabbitmq.com/install-windows.html - installation
+https://www.rabbitmq.com/getstarted.html - all tutorials
+https://www.rabbitmq.com/tutorials/tutorial-one-java.html - setup
+https://www.rabbitmq.com/tutorials/tutorial-three-java.html - publish subscribe
+https://www.rabbitmq.com/tutorials/tutorial-six-java.html - RPC
