@@ -1,6 +1,6 @@
-package Frontend;
+package AuctionOwner.Frontend;
 
-import Backend.AuctionOwner;
+import AuctionOwner.Backend.AuctionOwner;
 import Classes.AuctionRoom;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
@@ -13,20 +13,24 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import javax.swing.*;
-
 
 /**
  * Created by Niels Verheijen on 08/03/2019.
  */
 public class AuctionOwnerController extends Application {
 
-    @FXML TextField newAuctionRoomName;
-    @FXML TextField newAuctionItemName;
-    @FXML TextField newAuctionStartPrice;
-    @FXML ListView<AuctionRoom> AuctionRoomsList;
+    @FXML private TextField newAuctionRoomName;
+    @FXML private TextField newAuctionItemName;
+    @FXML private TextField newAuctionStartPrice;
+
+    @FXML private TextField selectedAuctionItemName;
+    @FXML private TextField selectedAuctionHighestBid;
+    @FXML private TextField selectedAuctionHighestBidder;
+
+    @FXML private ListView<AuctionRoom> auctionRoomsList;
 
     private AuctionOwner auctionOwner;
+
 
     public static void main(String[] args){
         launch(args);
@@ -34,7 +38,6 @@ public class AuctionOwnerController extends Application {
 
     public void initialize(){
         auctionOwner = new AuctionOwner(this);
-        SetObservableList(auctionOwner.getAuctionRooms());
     }
 
     @Override
@@ -47,11 +50,10 @@ public class AuctionOwnerController extends Application {
     }
 
     public void SetObservableList(ObservableList<AuctionRoom> auctionRooms){
-        AuctionRoomsList.setItems(auctionRooms);
+        auctionRoomsList.setItems(auctionRooms);
     }
 
     public void OnClick_AddToAuction(){
-        System.out.println("Add to auction");
         String itemName = newAuctionItemName.getText();
         double startPrice;
         try{
@@ -67,5 +69,16 @@ public class AuctionOwnerController extends Application {
 
     public void OnClick_CreateNewAuctionRoom(){
         auctionOwner.CreateNewAuctionRoom(newAuctionRoomName.getText());
+    }
+
+    public void OnClick_AuctionRoomClicked(){
+        AuctionRoom auctionRoom = auctionRoomsList.getSelectionModel().getSelectedItem();
+        auctionOwner.SelectAuctionRoom(auctionRoom);
+    }
+
+    public void showAuctionData(String itemName, String highestBid, String highestBidder){
+        selectedAuctionItemName.setText(itemName);
+        selectedAuctionHighestBid.setText(highestBid);
+        selectedAuctionHighestBidder.setText(highestBidder);
     }
 }

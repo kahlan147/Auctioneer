@@ -4,13 +4,30 @@ package Classes;
  */
 public class Auction {
     private String name;
+    private double highestBid;
+    private String nameHighestBidder;
 
     public Auction(String name){
         this.name = name;
+        highestBid = -.00001;
     }
 
-    @Override
-    public String toString(){
+    public String getName(){
         return name;
+    }
+
+    public double getHighestBid(){
+        return highestBid;
+    }
+
+    public String getNameHighestBidder(){
+        return nameHighestBidder;
+    }
+
+    public void newBid(double newBid, String nameBidder){
+        if(highestBid < newBid){
+            highestBid = newBid;
+            nameHighestBidder = nameBidder;
+        }
     }
 }

@@ -2,20 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="215e706d-afd2-4eec-8935-e88afa74a6a1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/applicationForms/AuctionBroker/Frontend/AuctionBroker.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/applicationForms/AuctionBroker/Frontend/AuctionBrokerController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/applicationForms/AuctionClient/Frontend/AuctionClient.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/applicationForms/AuctionClient/Frontend/AuctionClientController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/applicationForms/AuctionOwner/Backend/AuctionOwner.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/applicationForms/AuctionOwner/Frontend/AuctionOwner.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/applicationForms/AuctionOwner/Frontend/AuctionOwnerController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mix/Classes/Auction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mix/Classes/AuctionRoom.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/applicationForms/AuctionBroker/AuctionBroker/Backend/AuctionBroker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/applicationForms/AuctionBroker/AuctionBroker/Frontend/AuctionBroker.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/applicationForms/AuctionBroker/AuctionBroker/Frontend/AuctionBrokerController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/applicationForms/AuctionClient/AuctionClient/Backend/AuctionClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/applicationForms/AuctionClient/AuctionClient/Backend/AuctionClientRoom.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/applicationForms/AuctionClient/AuctionClient/Frontend/AuctionClient/AuctionClient.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/applicationForms/AuctionClient/AuctionClient/Frontend/AuctionRoom/AuctionClientRoomController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/applicationForms/AuctionOwner/AuctionOwner/Backend/AuctionOwner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/applicationForms/AuctionBroker/AuctionBrokerForm.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/applicationForms/AuctionBroker/AuctionBrokerFormFrame.form" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/applicationForms/AuctionOwner/AuctionOwnerForm.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/applicationForms/AuctionOwner/AuctionOwnerFormFrame.form" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/applicationForms/AuctionBroker/Frontend/AuctionBroker.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/applicationForms/AuctionClient/AuctionClient/Frontend/AuctionRoom/AuctionClientRoom.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/applicationForms/AuctionBroker/Frontend/AuctionBrokerController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/applicationForms/AuctionClient/Frontend/AuctionClient.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/applicationForms/AuctionClient/Frontend/AuctionClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/applicationForms/AuctionClient/AuctionClient/Frontend/AuctionClient/AuctionClientController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/applicationForms/AuctionOwner/Backend/AuctionOwner.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/applicationForms/AuctionOwner/Frontend/AuctionOwner.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/applicationForms/AuctionOwner/AuctionOwner/Frontend/AuctionOwner.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/applicationForms/AuctionOwner/Frontend/AuctionOwnerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/applicationForms/AuctionOwner/AuctionOwner/Frontend/AuctionOwnerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mix/Classes/Auction.java" beforeDir="false" afterPath="$PROJECT_DIR$/mix/Classes/Auction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mix/Classes/AuctionRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/mix/Classes/AuctionRoom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AuctioneerApp/Frontend/AuctionBroker.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AuctioneerApp/Frontend/AuctionClient.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AuctioneerApp/Frontend/AuctionOwner.fxml" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -27,64 +34,31 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/applicationForms/AuctionOwner/Frontend/AuctionOwnerController.java">
+        <entry file="file://$PROJECT_DIR$/applicationForms/AuctionClient/AuctionClient/Frontend/AuctionClient/AuctionClientController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="53" column="45" lean-forward="true" selection-start-line="53" selection-start-column="45" selection-end-line="53" selection-end-column="45" />
+            <state relative-caret-position="269">
+              <caret line="48" column="78" selection-start-line="48" selection-start-column="78" selection-end-line="48" selection-end-column="78" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#659#660#0" expanded="true" />
-                <element signature="e#687#688#0" expanded="true" />
-                <element signature="e#1202#1203#0" expanded="true" />
-                <element signature="e#1257#1258#0" expanded="true" />
-                <element signature="e#1657#1658#0" expanded="true" />
-                <element signature="e#1736#1737#0" expanded="true" />
-                <element signature="e#1794#1795#0" expanded="true" />
-                <element signature="e#1854#1855#0" expanded="true" />
-                <element signature="e#1915#1916#0" expanded="true" />
-                <element signature="e#1978#1979#0" expanded="true" />
+                <element signature="e#741#742#0" expanded="true" />
+                <element signature="e#771#772#0" expanded="true" />
+                <element signature="e#1518#1519#0" expanded="true" />
+                <element signature="e#1575#1576#0" expanded="true" />
+                <element signature="e#1607#1608#0" expanded="true" />
+                <element signature="e#1639#1640#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mix/Classes/AuctionRoom.java">
+        <entry file="file://$PROJECT_DIR$/applicationForms/AuctionClient/AuctionClient/Backend/AuctionClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="5" column="26" selection-start-line="5" selection-start-column="26" selection-end-line="5" selection-end-column="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/applicationForms/AuctionOwner/Frontend/AuctionOwner.fxml">
-          <provider editor-type-id="JavaFX-Scene-Builder" />
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="96">
-              <caret line="15" column="20" lean-forward="true" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/applicationForms/AuctionOwner/Backend/AuctionOwner.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="256">
-              <caret line="29" column="59" selection-start-line="29" selection-start-column="59" selection-end-line="29" selection-end-column="59" />
+            <state relative-caret-position="139">
+              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#537#550#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mix/Classes/Auction.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="128">
-              <caret line="10" selection-start-line="10" selection-end-line="14" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -131,12 +105,23 @@
         <option value="$PROJECT_DIR$/applicationForms/AuctionClient/AuctionClient.java" />
         <option value="$PROJECT_DIR$/applicationForms/AuctionOwner/AuctionOwner.java" />
         <option value="$PROJECT_DIR$/applicationForms/AuctionOwner/AuctionOwnerController.java" />
-        <option value="$PROJECT_DIR$/applicationForms/AuctionOwner/Frontend/AuctionOwner.fxml" />
         <option value="$PROJECT_DIR$/mix/Auction.java" />
+        <option value="$PROJECT_DIR$/applicationForms/AuctionOwner/Frontend/AuctionOwner.fxml" />
         <option value="$PROJECT_DIR$/mix/Classes/Auction.java" />
-        <option value="$PROJECT_DIR$/mix/Classes/AuctionRoom.java" />
-        <option value="$PROJECT_DIR$/applicationForms/AuctionOwner/Backend/AuctionOwner.java" />
         <option value="$PROJECT_DIR$/applicationForms/AuctionOwner/Frontend/AuctionOwnerController.java" />
+        <option value="$PROJECT_DIR$/mix/Classes/AuctionRoom.java" />
+        <option value="$PROJECT_DIR$/applicationForms/AuctionBroker/Backend/AuctionBroker.java" />
+        <option value="$PROJECT_DIR$/applicationForms/AuctionBroker/Frontend/AuctionBroker.fxml" />
+        <option value="$PROJECT_DIR$/applicationForms/AuctionBroker/Frontend/AuctionBrokerController.java" />
+        <option value="$PROJECT_DIR$/applicationForms/AuctionOwner/Backend/AuctionOwner.java" />
+        <option value="$PROJECT_DIR$/applicationForms/AuctionOwner/AuctionOwner/Backend/AuctionOwner.java" />
+        <option value="$PROJECT_DIR$/applicationForms/AuctionClient/AuctionClient/Frontend/AuctionClientController.java" />
+        <option value="$PROJECT_DIR$/applicationForms/AuctionClient/AuctionClient/Frontend/AuctionRoom/AuctionClientRoom.fxml" />
+        <option value="$PROJECT_DIR$/applicationForms/AuctionClient/AuctionClient/Backend/AuctionClientRoom.java" />
+        <option value="$PROJECT_DIR$/applicationForms/AuctionClient/AuctionClient/Frontend/AuctionRoom/AuctionClientRoomController.java" />
+        <option value="$PROJECT_DIR$/applicationForms/AuctionBroker/AuctionBroker/Backend/AuctionBroker.java" />
+        <option value="$PROJECT_DIR$/applicationForms/AuctionClient/AuctionClient/Backend/AuctionClient.java" />
+        <option value="$PROJECT_DIR$/applicationForms/AuctionClient/AuctionClient/Frontend/AuctionClient/AuctionClientController.java" />
       </list>
     </option>
   </component>
@@ -151,6 +136,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -173,7 +159,71 @@
               <item name="AuctioneerApp" type="b2602c69:ProjectViewProjectNode" />
               <item name="Auctioneer" type="462c0819:PsiDirectoryNode" />
               <item name="applicationForms" type="462c0819:PsiDirectoryNode" />
+              <item name="AuctionBroker" type="462c0819:PsiDirectoryNode" />
+              <item name="AuctionBroker" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AuctioneerApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Auctioneer" type="462c0819:PsiDirectoryNode" />
+              <item name="applicationForms" type="462c0819:PsiDirectoryNode" />
+              <item name="AuctionBroker" type="462c0819:PsiDirectoryNode" />
+              <item name="AuctionBroker" type="462c0819:PsiDirectoryNode" />
+              <item name="Backend" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AuctioneerApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Auctioneer" type="462c0819:PsiDirectoryNode" />
+              <item name="applicationForms" type="462c0819:PsiDirectoryNode" />
+              <item name="AuctionBroker" type="462c0819:PsiDirectoryNode" />
+              <item name="AuctionBroker" type="462c0819:PsiDirectoryNode" />
+              <item name="Frontend" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AuctioneerApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Auctioneer" type="462c0819:PsiDirectoryNode" />
+              <item name="applicationForms" type="462c0819:PsiDirectoryNode" />
               <item name="AuctionClient" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AuctioneerApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Auctioneer" type="462c0819:PsiDirectoryNode" />
+              <item name="applicationForms" type="462c0819:PsiDirectoryNode" />
+              <item name="AuctionClient" type="462c0819:PsiDirectoryNode" />
+              <item name="AuctionClient" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AuctioneerApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Auctioneer" type="462c0819:PsiDirectoryNode" />
+              <item name="applicationForms" type="462c0819:PsiDirectoryNode" />
+              <item name="AuctionClient" type="462c0819:PsiDirectoryNode" />
+              <item name="AuctionClient" type="462c0819:PsiDirectoryNode" />
+              <item name="Backend" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AuctioneerApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Auctioneer" type="462c0819:PsiDirectoryNode" />
+              <item name="applicationForms" type="462c0819:PsiDirectoryNode" />
+              <item name="AuctionClient" type="462c0819:PsiDirectoryNode" />
+              <item name="AuctionClient" type="462c0819:PsiDirectoryNode" />
+              <item name="Frontend" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AuctioneerApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Auctioneer" type="462c0819:PsiDirectoryNode" />
+              <item name="applicationForms" type="462c0819:PsiDirectoryNode" />
+              <item name="AuctionClient" type="462c0819:PsiDirectoryNode" />
+              <item name="AuctionClient" type="462c0819:PsiDirectoryNode" />
+              <item name="Frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="AuctionClient" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AuctioneerApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Auctioneer" type="462c0819:PsiDirectoryNode" />
+              <item name="applicationForms" type="462c0819:PsiDirectoryNode" />
+              <item name="AuctionClient" type="462c0819:PsiDirectoryNode" />
+              <item name="AuctionClient" type="462c0819:PsiDirectoryNode" />
+              <item name="Frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="AuctionRoom" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="AuctioneerApp" type="b2602c69:ProjectViewProjectNode" />
@@ -185,6 +235,14 @@
               <item name="AuctioneerApp" type="b2602c69:ProjectViewProjectNode" />
               <item name="Auctioneer" type="462c0819:PsiDirectoryNode" />
               <item name="applicationForms" type="462c0819:PsiDirectoryNode" />
+              <item name="AuctionOwner" type="462c0819:PsiDirectoryNode" />
+              <item name="AuctionOwner" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AuctioneerApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Auctioneer" type="462c0819:PsiDirectoryNode" />
+              <item name="applicationForms" type="462c0819:PsiDirectoryNode" />
+              <item name="AuctionOwner" type="462c0819:PsiDirectoryNode" />
               <item name="AuctionOwner" type="462c0819:PsiDirectoryNode" />
               <item name="Backend" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -192,6 +250,7 @@
               <item name="AuctioneerApp" type="b2602c69:ProjectViewProjectNode" />
               <item name="Auctioneer" type="462c0819:PsiDirectoryNode" />
               <item name="applicationForms" type="462c0819:PsiDirectoryNode" />
+              <item name="AuctionOwner" type="462c0819:PsiDirectoryNode" />
               <item name="AuctionOwner" type="462c0819:PsiDirectoryNode" />
               <item name="Frontend" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -220,7 +279,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -231,17 +289,18 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1552266050481" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1552373144550" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../SceneBuilder/JavaFX Scene Builder 2.0.exe" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="B:\School\S6\DPI\Auctioneer\applicationForms\AuctionClient\AuctionClient\Frontend\AuctionClient" />
       <recent name="B:\School\S6\DPI\Auctioneer\applicationForms\AuctionBroker\Frontend" />
       <recent name="B:\School\S6\DPI\Auctioneer\applicationForms\AuctionClient\Frontend" />
       <recent name="B:\School\S6\DPI\Auctioneer\applicationForms\AuctionOwner\Frontend" />
@@ -260,17 +319,51 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.AuctionOwnerController (1)">
+  <component name="RunManager" selected="Application.AuctionClientController (2)">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AuctionBrokerController" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="AuctionBrokerController" />
+    <configuration name="AuctionBrokerController (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="AuctionBroker.Frontend.AuctionBrokerController" />
       <module name="AuctioneerApp" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="AuctionBroker.Frontend.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AuctionClientController (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="AuctionClient.Frontend.AuctionClientController" />
+      <module name="AuctioneerApp" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="AuctionClient.Frontend.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AuctionClientController (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="AuctionClient.Frontend.AuctionClient.AuctionClientController" />
+      <module name="AuctioneerApp" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="AuctionClient.Frontend.AuctionClient.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -283,24 +376,24 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AuctionOwnerController (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Frontend.AuctionOwnerController" />
+    <configuration name="AuctionOwnerController" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="AuctionOwnerController" />
       <module name="AuctioneerApp" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Frontend.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="AuctionOwnerController" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="AuctionOwnerController" />
+      <option name="MAIN_CLASS_NAME" value="AuctionOwner.Frontend.AuctionOwnerController" />
       <module name="AuctioneerApp" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="AuctionOwner.Frontend.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -337,7 +430,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.AuctionOwnerController (1)" />
+        <item itemvalue="Application.AuctionClientController (2)" />
+        <item itemvalue="Application.AuctionClientController (1)" />
+        <item itemvalue="Application.AuctionBrokerController (1)" />
         <item itemvalue="Application.AuctionOwnerController" />
         <item itemvalue="Application.AuctionClientController" />
       </list>
@@ -357,18 +452,22 @@
       <workItem from="1551873638275" duration="3073000" />
       <workItem from="1552056277954" duration="9064000" />
       <workItem from="1552245167270" duration="3731000" />
-      <workItem from="1552263252446" duration="2783000" />
+      <workItem from="1552263252446" duration="2863000" />
+      <workItem from="1552284685104" duration="4206000" />
+      <workItem from="1552307743847" duration="4367000" />
+      <workItem from="1552346875052" duration="871000" />
+      <workItem from="1552371828816" duration="1314000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25924000" />
+    <option name="totallyTimeSpent" value="36762000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26308724" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27919462" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -377,7 +476,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3286119" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32719547" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32719547" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.2733711" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -431,41 +530,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/applicationForms/AuctionOwner/AuctionOwnerForm.form" />
-    <entry file="file://$PROJECT_DIR$/applicationForms/AuctionBroker/Frontend/AuctionBrokerController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="3" column="26" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/applicationForms/AuctionBroker/Frontend/AuctionBroker.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="10" column="40" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/applicationForms/AuctionClient/Frontend/AuctionClient.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/applicationForms/AuctionClient/Frontend/AuctionClientController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#298#299#0" expanded="true" />
-            <element signature="e#326#327#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mix/messaging/MessageReceiver.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
@@ -484,28 +548,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mix/Classes/AuctionRoom.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="5" column="26" selection-start-line="5" selection-start-column="26" selection-end-line="5" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mix/Classes/Auction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="10" selection-start-line="10" selection-end-line="14" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/applicationForms/AuctionOwner/Frontend/AuctionOwner.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="15" column="20" lean-forward="true" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_131/src.zip!/java/lang/Double.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="166">
@@ -513,33 +555,149 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/applicationForms/AuctionOwner/Backend/AuctionOwner.java">
+    <entry file="file://$PROJECT_DIR$/mix/Classes/AuctionRoom.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="29" column="59" selection-start-line="29" selection-start-column="59" selection-end-line="29" selection-end-column="59" />
+        <state relative-caret-position="283">
+          <caret line="30" column="5" lean-forward="true" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#537#550#0" expanded="true" />
+            <element signature="e#274#275#0" expanded="true" />
+            <element signature="e#311#312#0" expanded="true" />
+            <element signature="e#649#650#0" expanded="true" />
+            <element signature="e#676#677#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/applicationForms/AuctionOwner/Frontend/AuctionOwnerController.java">
+    <entry file="file://$PROJECT_DIR$/mix/Classes/Auction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="53" column="45" lean-forward="true" selection-start-line="53" selection-start-column="45" selection-end-line="53" selection-end-column="45" />
+        <state relative-caret-position="96">
+          <caret line="10" column="25" lean-forward="true" selection-start-line="10" selection-start-column="25" selection-end-line="10" selection-end-column="25" />
+          <folding>
+            <element signature="e#300#301#0" expanded="true" />
+            <element signature="e#327#328#0" expanded="true" />
+            <element signature="e#367#368#0" expanded="true" />
+            <element signature="e#388#389#0" expanded="true" />
+            <element signature="e#481#482#0" expanded="true" />
+            <element signature="e#520#521#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applicationForms/AuctionOwner/AuctionOwner/Frontend/AuctionOwner.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="5" column="33" selection-start-line="5" selection-start-column="33" selection-end-line="6" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applicationForms/AuctionClient/AuctionClient/Frontend/AuctionClient/AuctionClient.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="11" column="19" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applicationForms/AuctionBroker/AuctionBroker/Frontend/AuctionBrokerController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="30" column="13" lean-forward="true" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#659#660#0" expanded="true" />
-            <element signature="e#687#688#0" expanded="true" />
-            <element signature="e#1202#1203#0" expanded="true" />
-            <element signature="e#1257#1258#0" expanded="true" />
-            <element signature="e#1657#1658#0" expanded="true" />
-            <element signature="e#1736#1737#0" expanded="true" />
-            <element signature="e#1794#1795#0" expanded="true" />
-            <element signature="e#1854#1855#0" expanded="true" />
-            <element signature="e#1915#1916#0" expanded="true" />
-            <element signature="e#1978#1979#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applicationForms/AuctionOwner/AuctionOwner/Frontend/AuctionOwnerController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="521">
+          <caret line="62" column="12" selection-start-line="62" selection-start-column="12" selection-end-line="64" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#start#0;class#AuctionOwnerController#0" />
+            <element signature="method#showAuctionData#0;class#AuctionOwnerController#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applicationForms/AuctionBroker/AuctionBroker/Frontend/AuctionBroker.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="22" column="58" selection-start-line="22" selection-start-column="58" selection-end-line="22" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applicationForms/AuctionClient/AuctionClient/Frontend/AuctionRoom/AuctionClientRoom.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="416">
+          <caret line="26" column="14" lean-forward="true" selection-start-line="26" selection-start-column="14" selection-end-line="26" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applicationForms/AuctionClient/AuctionClient/Frontend/AuctionRoom/AuctionClientRoomController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="16">
+          <caret line="11" column="25" lean-forward="true" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
+          <folding>
+            <element signature="e#614#615#0" expanded="true" />
+            <element signature="e#672#673#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applicationForms/AuctionClient/AuctionClient/Backend/AuctionClientRoom.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applicationForms/AuctionBroker/AuctionBroker/Backend/AuctionBroker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="22" column="64" selection-start-line="22" selection-start-column="64" selection-end-line="22" selection-end-column="64" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applicationForms/AuctionOwner/AuctionOwner/Backend/AuctionOwner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="19" column="61" lean-forward="true" selection-start-line="19" selection-start-column="61" selection-end-line="20" selection-end-column="72" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applicationForms/AuctionClient/AuctionClient/Backend/AuctionClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applicationForms/AuctionClient/AuctionClient/Frontend/AuctionClient/AuctionClientController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="48" column="78" selection-start-line="48" selection-start-column="78" selection-end-line="48" selection-end-column="78" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#741#742#0" expanded="true" />
+            <element signature="e#771#772#0" expanded="true" />
+            <element signature="e#1518#1519#0" expanded="true" />
+            <element signature="e#1575#1576#0" expanded="true" />
+            <element signature="e#1607#1608#0" expanded="true" />
+            <element signature="e#1639#1640#0" expanded="true" />
           </folding>
         </state>
       </provider>

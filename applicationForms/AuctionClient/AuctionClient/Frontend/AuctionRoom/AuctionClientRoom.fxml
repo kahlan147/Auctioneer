@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AuctionClient.Frontend.AuctionRoom.AuctionClientRoomController">
+   <children>
+      <Pane layoutX="14.0" layoutY="7.0" prefHeight="189.0" prefWidth="581.0">
+         <children>
+            <Label layoutX="273.0" layoutY="28.0" text="Item:" />
+            <TextField fx:id="currentItem" editable="false" layoutX="198.0" layoutY="52.0" />
+            <Label layoutX="251.0" layoutY="95.0" text="Highest bid:" />
+            <TextField fx:id="currentHighestBid" editable="false" layoutX="198.0" layoutY="122.0" />
+         </children>
+      </Pane>
+      <Pane layoutX="14.0" layoutY="221.0" prefHeight="165.0" prefWidth="581.0">
+         <children>
+            <TextField fx:id="bidAmount" layoutX="197.0" layoutY="52.0" />
+            <Button layoutX="269.0" layoutY="105.0" mnemonicParsing="false" onMouseClicked="#OnClick_Bid" text="Bid" />
+            <Button fx:id="disconnectButton" layoutX="487.0" layoutY="136.0" mnemonicParsing="false" onMouseClicked="#OnClick_Disconnect" text="Disconnect" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
