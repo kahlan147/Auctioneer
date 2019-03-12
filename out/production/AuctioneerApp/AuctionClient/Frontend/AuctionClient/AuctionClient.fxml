@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="444.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AuctionClient.Frontend.AuctionClient.AuctionClientController">
+   <children>
+      <Pane layoutX="14.0" layoutY="14.0" prefHeight="371.0" prefWidth="187.0">
+         <children>
+            <Label layoutY="253.0" text="Name" />
+            <TextField fx:id="userName" layoutY="274.0" />
+            <Button layoutX="48.0" layoutY="317.0" mnemonicParsing="false" onMouseClicked="#OnClick_Connect" text="Connect" />
+            <Button layoutX="116.0" layoutY="6.0" mnemonicParsing="false" onMouseClicked="#OnClick_Refresh" text="Refresh" />
+         </children>
+      </Pane>
+      <Pane layoutX="207.0" layoutY="14.0" prefHeight="371.0" prefWidth="230.0">
+         <children>
+            <ListView fx:id="rooms" layoutX="2.0" layoutY="5.0" prefHeight="361.0" prefWidth="226.0" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
