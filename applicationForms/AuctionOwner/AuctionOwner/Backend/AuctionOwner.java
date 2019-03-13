@@ -6,6 +6,7 @@ import AuctionOwner.Frontend.AuctionOwnerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
+import messaging.MessagePublisher;
 
 /**
  * Created by Niels Verheijen on 08/03/2019.
@@ -16,10 +17,13 @@ public class AuctionOwner {
     private ObservableList<AuctionRoom> auctionRooms;
     private AuctionRoom selectedAuctionRoom;
 
+    private MessagePublisher messagePublisher;
+
     public AuctionOwner(AuctionOwnerController auctionOwnerController){
         this.auctionOwnerController = auctionOwnerController;
         auctionRooms = FXCollections.<AuctionRoom>observableArrayList();
         auctionOwnerController.SetObservableList(auctionRooms);
+        messagePublisher = new MessagePublisher("Owner");
     }
 
     public void CreateNewAuctionRoom(String text){
@@ -36,6 +40,7 @@ public class AuctionOwner {
         auction.newBid(startPrice, "StartPrice");
         selectedAuctionRoom.NewAuction(auction);
         SelectAuctionRoom(selectedAuctionRoom);
+        messagePublisher.SendMessage(name);
     }
 
     public void SelectAuctionRoom(AuctionRoom auctionRoom){

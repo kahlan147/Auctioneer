@@ -1,46 +1,46 @@
 package messaging;
 
-import com.rabbitmq.client.ConnectionFactory;
-import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.concurrent.TimeoutException;
 
 /**
- * Created by Niels Verheijen on 04/03/2019.
+ * Created by Niels Verheijen on 13/03/2019.
  */
-public class MessageSender {
+public class MessagePublisher {
 
-    private String QUEUE_NAME;
+    private String exchangeName;
     private Channel channel;
 
-    public MessageSender(String queueName){
-        this.QUEUE_NAME = queueName;
+    public MessagePublisher(String exchangeName){
+        this.exchangeName = exchangeName;
         setup();
     }
 
-    private void setup(){
+    private void setup() {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
         try {
             Connection connection = factory.newConnection();
             channel = connection.createChannel();
-            channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+            channel.exchangeDeclare(exchangeName, "fanout");
         }
-        catch (TimeoutException | IOException e) {
+        catch(IOException | TimeoutException e){
             e.printStackTrace();
         }
     }
 
-    private void sendMessage(String message){
+    public void SendMessage(String message){
         try {
-            channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
+            channel.basicPublish(exchangeName, "", null, message.getBytes("UTF-8"));
             System.out.println(" [x] Sent '" + message + "'");
         }
         catch(IOException e){
             e.printStackTrace();
         }
     }
-
 }
