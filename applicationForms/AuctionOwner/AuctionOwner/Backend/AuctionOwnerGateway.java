@@ -7,9 +7,11 @@ import Serializer.AuctionRoomListSerializationHandler;
 import Serializer.AuctionRoomSerializationHandler;
 import Serializer.AuctionSerializationHandler;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.rabbitmq.client.impl.ChannelN;
 import javafx.application.Platform;
 import messaging.IMessageReceiver;
 import messaging.MessageReceiver;
+import messaging.MessageSender;
 import messaging.RPC.CreateAuctionRoom.RPCCreateAuctionRoomClient;
 import messaging.RPC.CreateAuctionRoom.RPCCreateAuctionRoomServer;
 
@@ -27,12 +29,13 @@ public class AuctionOwnerGateway{
     private AuctionRoomSerializationHandler auctionRoomSerializationHandler;
 
     private RPCCreateAuctionRoomClient rpcCreateAuctionRoomClient;
-    private MessageReceiver messageReceiver;
+    private MessageSender messageSender;
 
     public AuctionOwnerGateway(AuctionOwner auctionOwner){
         this.auctionOwner = auctionOwner;
         auctionSerializationHandler = new AuctionSerializationHandler();
         auctionRoomSerializationHandler = new AuctionRoomSerializationHandler();
+        messageSender = new MessageSender(ChannelNames.OWNERTOBROKERNEWAUCTION);
     }
 
     public void RPC_RequestNewAuctionRoom(String name){
@@ -41,7 +44,13 @@ public class AuctionOwnerGateway{
     }
 
     public void AddToAuction(Auction auction){
-
+        try {
+            String serializedAuction = auctionSerializationHandler.serialize(auction);
+            messageSender.sendMessage(serializedAuction);
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
     }
 
     public void auctionRoomCreated(String message) {

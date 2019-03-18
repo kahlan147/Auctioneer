@@ -25,7 +25,7 @@ public class AuctionClientRoomController extends Application {
     private AuctionClientRoom auctionClientRoom;
 
     public void initialize(){
-        auctionClientRoom = new AuctionClientRoom(this);
+        //auctionClientRoom = new AuctionClientRoom(this);
     }
 
     public void start(Stage stage){
@@ -41,6 +41,10 @@ public class AuctionClientRoomController extends Application {
         }
     }
 
+    public void setAuctionClientRoom(AuctionClientRoom auctionClientRoom){
+        this.auctionClientRoom = auctionClientRoom;
+    }
+
     public void OnClick_Bid(){
         double bid;
         try {
@@ -51,11 +55,11 @@ public class AuctionClientRoomController extends Application {
             alert.show();
             return;
         }
-        auctionClientRoom.Bid(bid);
+        auctionClientRoom.bid(bid);
     }
 
     public void OnClick_Disconnect(){
-        auctionClientRoom.Disconnect();
+        auctionClientRoom.disconnect();
         disconnectButton.getScene().getWindow().hide();
     }
 

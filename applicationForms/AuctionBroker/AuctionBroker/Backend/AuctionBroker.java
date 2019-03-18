@@ -9,7 +9,9 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import messaging.PublishSubscribe.MessageSubscriber;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by Niels Verheijen on 11/03/2019.
@@ -19,12 +21,9 @@ public class AuctionBroker {
     private AuctionBrokerController auctionBrokerController;
 
     private ObservableList<AuctionRoom> auctionRooms;
-    private AuctionRoom selectedAuctionRoom;
 
     private BrokerToOwnerGateway brokerToOwnerGateway;
     private BrokerToClientGateway brokerToClientGateway;
-
-    private MessageSubscriber messageSubscriber;
 
     public AuctionBroker(AuctionBrokerController auctionBrokerController){
         this.auctionBrokerController = auctionBrokerController;
@@ -34,24 +33,10 @@ public class AuctionBroker {
 
         brokerToOwnerGateway = new BrokerToOwnerGateway(this);
         brokerToClientGateway = new BrokerToClientGateway(this);
-
-        //messageSubscriber = new MessageSubscriber("Owner");
-        //DEBUG_ADDROOMS();
-    }
-
-    private void DEBUG_ADDROOMS(){
-        auctionRooms.add(new AuctionRoom("test1"));
-        auctionRooms.add(new AuctionRoom("test2"));
-        auctionRooms.add(new AuctionRoom("test3"));
-        auctionRooms.add(new AuctionRoom("test4"));
-        auctionRooms.add(new AuctionRoom("test5"));
-        auctionRooms.add(new AuctionRoom("test6"));
-        auctionRooms.add(new AuctionRoom("test7"));
-        auctionRooms.add(new AuctionRoom("test8"));
     }
 
     public void SelectAuctionRoom(AuctionRoom auctionRoom){
-        selectedAuctionRoom = auctionRoom;
+        AuctionRoom selectedAuctionRoom = auctionRoom;
         Auction currentAuction = selectedAuctionRoom.getCurrentAuction();
         if(currentAuction != null){
             auctionBrokerController.showAuctionData(currentAuction.getName(), Double.toString(currentAuction.getHighestBid()), currentAuction.getNameHighestBidder());
@@ -63,6 +48,10 @@ public class AuctionBroker {
 
     public AuctionRoom createAuctionRoom(String name){
         AuctionRoom auctionRoom = new AuctionRoom(name);
+        String subscribeChannel = UUID.randomUUID().toString();
+        String replyChannel = UUID.randomUUID().toString();
+        auctionRoom.setChannels(subscribeChannel, replyChannel);
+        brokerToClientGateway.addPublisherToAuctionRoom(auctionRoom);
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -74,6 +63,14 @@ public class AuctionBroker {
 
     public List<AuctionRoom> getAuctionRooms(){
         return auctionRooms;
+    }
+
+    private AuctionRoom findAuctionRoom(String subscriberChannel){
+        return auctionRooms.filtered(o -> o.getSubscribeChannel().equals(subscriberChannel)).get(0);
+    }
+
+    public void addAuction(Auction auction){
+        findAuctionRoom(auction.getAuctionRoomId()).NewAuction(auction);
     }
 
 

@@ -28,6 +28,9 @@ public class AuctionDeserializer extends StdDeserializer<Auction> {
         String name = (String) node.get("name").asText();
         double highestBid = (double) node.get("highestBid").numberValue();
         String nameHighestBidder = (String) node.get("nameHighestBidder").asText();
-        return new Auction(name, highestBid, nameHighestBidder);
+        String auctionRoomId = (String) node.get("auctionRoomId").asText();
+        Auction auction = new Auction(name, highestBid, nameHighestBidder);
+        auction.setAuctionRoomId(auctionRoomId);
+        return auction;
     }
 }

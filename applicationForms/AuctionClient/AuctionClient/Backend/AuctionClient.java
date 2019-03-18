@@ -6,6 +6,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,19 +18,21 @@ public class AuctionClient {
     private ObservableList<AuctionRoom> auctionRooms;
 
     private AuctionClientGateway auctionClientGateway;
+    private List<AuctionClientRoom> auctionClientRooms;
 
     public AuctionClient(AuctionClientController auctionClientController){
         this.auctionClientController = auctionClientController;
         auctionRooms = FXCollections.<AuctionRoom>observableArrayList();
-        this.auctionClientController.SetObservableList(auctionRooms);
+        this.auctionClientController.setObservableList(auctionRooms);
         auctionClientGateway = new AuctionClientGateway(this);
+        auctionClientRooms = new ArrayList<>();
     }
 
-    public void GetAuctionRoomsFromBroker(){
+    public void getAuctionRoomsFromBroker(){
         auctionClientGateway.requestAuctionRooms();
     }
 
-    public void AddAuctionRooms(List<AuctionRoom> newAuctionRooms){
+    public void addAuctionRooms(List<AuctionRoom> newAuctionRooms){
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -38,4 +41,18 @@ public class AuctionClient {
             }
         });
     }
+
+    public void connectTo(AuctionRoom auctionRoom){
+        createAuctionClientRoom(auctionRoom);
+    }
+
+    private void createAuctionClientRoom(AuctionRoom auctionRoom){
+        AuctionClientRoom auctionClientRoom = new AuctionClientRoom(auctionRoom, this);
+        auctionClientRooms.add(auctionClientRoom);
+    }
+
+    public void disconnect(AuctionClientRoom auctionClientRoom){
+        auctionClientRooms.remove(auctionClientRoom);
+    }
+
 }

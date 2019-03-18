@@ -1,6 +1,7 @@
 package AuctionClient.Frontend.AuctionClient;
 
 import AuctionClient.Backend.AuctionClient;
+import AuctionClient.Backend.AuctionClientRoom;
 import AuctionClient.Frontend.AuctionRoom.AuctionClientRoomController;
 import Classes.AuctionRoom;
 import javafx.application.Application;
@@ -13,6 +14,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Niels Verheijen on 08/03/2019.
@@ -40,21 +44,19 @@ public class AuctionClientController extends Application{
         stage.show();
     }
 
-    private void createAuctionClientRoom(){
-        AuctionClientRoomController auctionClientRoomController = new AuctionClientRoomController();
-        auctionClientRoomController.start(new Stage());
-    }
+
 
     public void OnClick_Connect(){
+        AuctionRoom auctionRoom = rooms.getSelectionModel().getSelectedItem();
         //todo get information from list on what channels to use/subscribe to.
-        createAuctionClientRoom();
+        auctionClient.connectTo(auctionRoom);
     }
 
     public void OnClick_Refresh(){
-        auctionClient.GetAuctionRoomsFromBroker();
+        auctionClient.getAuctionRoomsFromBroker();
     }
 
-    public void SetObservableList(ObservableList<AuctionRoom> auctionRooms){
+    public void setObservableList(ObservableList<AuctionRoom> auctionRooms){
         rooms.setItems(auctionRooms);
     }
 

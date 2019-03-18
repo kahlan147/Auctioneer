@@ -9,6 +9,8 @@ import com.rabbitmq.client.ConnectionFactory;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeoutException;
 
 /**
@@ -16,11 +18,12 @@ import java.util.concurrent.TimeoutException;
  */
 public class MessagePublisher {
 
-    private String exchangeName;
-    private Channel channel;
+    private Map<String, Channel> channelMap;
 
-    public MessagePublisher(String exchangeName){
-        this.exchangeName = exchangeName;
+    private Connection connection;
+
+    public MessagePublisher(){
+        channelMap = new HashMap<>();
         setup();
     }
 
@@ -28,17 +31,27 @@ public class MessagePublisher {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
         try {
-            Connection connection = factory.newConnection();
-            channel = connection.createChannel();
-            channel.exchangeDeclare(exchangeName, "fanout");
+            connection = factory.newConnection();
         }
         catch(IOException | TimeoutException e){
             e.printStackTrace();
         }
     }
 
-    public void SendMessage(String message){
+    public void createChannel(String exchangeName){
         try {
+            Channel channel = connection.createChannel();
+            channel.exchangeDeclare(exchangeName, "fanout");
+            channelMap.put(exchangeName, channel);
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void SendMessage(String exchangeName, String message){
+        try {
+            Channel channel = channelMap.get(exchangeName);
             channel.basicPublish(exchangeName, "", null, message.getBytes("UTF-8"));
             System.out.println(" [x] Sent '" + message + "'");
         }
@@ -46,4 +59,5 @@ public class MessagePublisher {
             e.printStackTrace();
         }
     }
+
 }

@@ -27,6 +27,10 @@ public class AuctionRoomDeserializer extends StdDeserializer<AuctionRoom> {
     public AuctionRoom deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
         JsonNode node = jsonParser.getCodec().readTree(jsonParser);
         String name = (String) node.get("name").asText();
-        return new AuctionRoom(name);
+        String subscribeChannel = (String) node.get("subscribeChannel").asText();
+        String replyChannel = (String) node.get("replyChannel").asText();
+        AuctionRoom auctionRoom = new AuctionRoom(name);
+        auctionRoom.setChannels(subscribeChannel, replyChannel);
+        return auctionRoom;
     }
 }

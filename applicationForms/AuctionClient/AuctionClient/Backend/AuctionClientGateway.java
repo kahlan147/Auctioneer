@@ -48,7 +48,7 @@ public class AuctionClientGateway {
     public void roomsReceived(String serializedRooms){
         try{
             List<AuctionRoom> auctionRooms = auctionRoomListSerializationHandler.deserialize(serializedRooms);
-            auctionClient.AddAuctionRooms(auctionRooms);
+            auctionClient.addAuctionRooms(auctionRooms);
             rpcGetAuctionRoomsClient.close();
         }
         catch(IOException e){

@@ -16,6 +16,8 @@ public class Auction {
     private double highestBid;
     @JsonProperty("nameHighestBidder")
     private String nameHighestBidder;
+    @JsonProperty("auctionRoomId")
+    private String auctionRoomId;
 
     public Auction(String name){
         this.name = name;
@@ -26,6 +28,14 @@ public class Auction {
         this.name = name;
         this.highestBid = highestBid;
         this.nameHighestBidder = nameHighestBidder;
+    }
+
+    public void setAuctionRoomId(String auctionRoomId){
+        this.auctionRoomId = auctionRoomId;
+    }
+
+    public String getAuctionRoomId(){
+        return auctionRoomId;
     }
 
     public String getName(){

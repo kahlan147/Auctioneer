@@ -11,13 +11,32 @@ import java.util.List;
  * Created by Niels Verheijen on 10/03/2019.
  */
 @JsonDeserialize(using = AuctionRoomDeserializer.class)
-public class AuctionRoom {
+public class AuctionRoom{
 
     @JsonProperty("name")
     private String name;
 
+    @JsonProperty("subscribeChannel")
+    private String subscribeChannel;
+
+    @JsonProperty("replyChannel")
+    private String replyChannel;
+
     private List<Auction> upcomingAuctions;
     private Auction currentAuction;
+
+    public void setChannels(String subscribeChannel, String replyChannel){
+        this.subscribeChannel = subscribeChannel;
+        this.replyChannel = replyChannel;
+    }
+
+    public String getSubscribeChannel(){
+        return subscribeChannel;
+    }
+
+    public String getReplyChannel(){
+        return replyChannel;
+    }
 
     public AuctionRoom(String name){
         this.name = name;
@@ -39,4 +58,5 @@ public class AuctionRoom {
     public String toString(){
         return name;
     }
+
 }

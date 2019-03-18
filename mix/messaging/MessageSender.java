@@ -45,15 +45,4 @@ public class MessageSender {
         }
     }
 
-    public void sendMessage(AuctionRoom auctionRoom){
-        try {
-            AuctionRoomSerializationHandler auctionRoomSerializationHandler = new AuctionRoomSerializationHandler();
-            String message = auctionRoomSerializationHandler.serialize(auctionRoom);
-            sendMessage(message);
-        }
-        catch(IOException e){
-            e.printStackTrace();
-        }
-    }
-
 }
