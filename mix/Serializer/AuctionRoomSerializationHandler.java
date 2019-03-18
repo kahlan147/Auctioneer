@@ -27,4 +27,5 @@ public class AuctionRoomSerializationHandler implements ISerializationHandler<Au
     public AuctionRoom deserialize(String serializedString) throws IOException {
         return objectMapper.readValue(serializedString, AuctionRoom.class);
     }
+
 }

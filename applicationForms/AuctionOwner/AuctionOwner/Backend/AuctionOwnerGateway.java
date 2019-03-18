@@ -2,13 +2,17 @@ package AuctionOwner.Backend;
 
 import Classes.Auction;
 import Classes.AuctionRoom;
+import Serializer.AuctionRoomListSerializationHandler;
 import Serializer.AuctionRoomSerializationHandler;
 import Serializer.AuctionSerializationHandler;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import messaging.IMessageReceiver;
 import messaging.MessageReceiver;
 import messaging.RPC.CreateAuctionRoom.RPCCreateAuctionRoomClient;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Niels Verheijen on 15/03/2019.
