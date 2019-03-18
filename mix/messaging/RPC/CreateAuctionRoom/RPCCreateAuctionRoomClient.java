@@ -1,4 +1,4 @@
-package messaging.RPC;
+package messaging.RPC.CreateAuctionRoom;
 
 import com.rabbitmq.client.*;
 import com.sun.jmx.remote.internal.ArrayQueue;
@@ -13,7 +13,7 @@ import java.util.concurrent.TimeoutException;
 /**
  * Created by Niels Verheijen on 14/03/2019.
  */
-public class MessageRPCClient {
+public class RPCCreateAuctionRoomClient {
 
     private Connection connection;
     private Channel channel;
@@ -21,7 +21,7 @@ public class MessageRPCClient {
 
     private IMessageReceiver receiver;
 
-    public MessageRPCClient(String queue, IMessageReceiver receiver){
+    public RPCCreateAuctionRoomClient(String queue, IMessageReceiver receiver){
         this.receiver = receiver;
         this.requestQueueName = queue;
         ConnectionFactory factory = new ConnectionFactory();

@@ -1,4 +1,4 @@
-package messaging.RPC;
+package messaging.RPC.CreateAuctionRoom;
 
 import AuctionBroker.Backend.AuctionBroker;
 import Classes.Auction;
@@ -12,13 +12,13 @@ import java.util.concurrent.TimeoutException;
 /**
  * Created by Niels Verheijen on 13/03/2019.
  */
-public class MessageRPCServer {
+public class RPCCreateAuctionRoomServer {
 
     private String RPC_QUEUE_NAME;
 
     private AuctionBroker auctionBroker;
 
-    public MessageRPCServer(String queueName, AuctionBroker auctionBroker){
+    public RPCCreateAuctionRoomServer(String queueName, AuctionBroker auctionBroker){
         this.RPC_QUEUE_NAME = queueName;
         this.auctionBroker = auctionBroker;
         setup();

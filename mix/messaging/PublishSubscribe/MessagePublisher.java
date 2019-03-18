@@ -1,4 +1,4 @@
-package messaging;
+package messaging.PublishSubscribe;
 
 import Classes.Auction;
 import Serializer.AuctionSerializationHandler;
