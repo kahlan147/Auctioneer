@@ -1,5 +1,7 @@
 package messaging;
 
+import Classes.Auction;
+import Serializer.AuctionSerializationHandler;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -12,7 +14,6 @@ import java.util.concurrent.TimeoutException;
  * Created by Niels Verheijen on 13/03/2019.
  */
 public class MessageSubscriber {
-    //https://www.rabbitmq.com/tutorials/tutorial-three-java.html
 
     private String exchangeName;
     private Channel channel;
@@ -35,12 +36,25 @@ public class MessageSubscriber {
 
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
                 String message = new String(delivery.getBody(), "UTF-8");
-                System.out.println(" [x] Received '" + message + "'");
+                System.out.println(message);
+                newReceived(message);
+
             };
             channel.basicConsume(queueName, true, deliverCallback, consumerTag -> { });
         }
         catch(IOException | TimeoutException e){
+            e.printStackTrace();
+        }
+    }
 
+    private void newReceived(String message){
+        try {
+            AuctionSerializationHandler auctionSerializer = new AuctionSerializationHandler();
+            Auction auction = auctionSerializer.deserialize(message);
+            System.out.println(" [x] Received '" + auction.getName() + "', '" + auction.getHighestBid() + "'");
+        }
+        catch(IOException e){
+            e.printStackTrace();
         }
     }
 }

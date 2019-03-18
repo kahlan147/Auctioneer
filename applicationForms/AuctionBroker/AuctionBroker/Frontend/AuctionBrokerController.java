@@ -24,6 +24,10 @@ public class AuctionBrokerController extends Application {
 
     private AuctionBroker auctionBroker;
 
+    public static void main(String[] args){
+        launch(args);
+    }
+
     public void initialize(){
         auctionBroker = new AuctionBroker(this);
     }

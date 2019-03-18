@@ -4,7 +4,7 @@ import AuctionClient.Frontend.AuctionClient.AuctionClientController;
 import Classes.AuctionRoom;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import messaging.MessageSubscriber;
+import messaging.PublishSubscribe.MessageSubscriber;
 
 /**
  * Created by Niels Verheijen on 12/03/2019.

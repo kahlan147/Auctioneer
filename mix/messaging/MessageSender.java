@@ -1,5 +1,7 @@
 package messaging;
 
+import Classes.AuctionRoom;
+import Serializer.AuctionRoomSerializationHandler;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.Channel;
@@ -33,10 +35,21 @@ public class MessageSender {
         }
     }
 
-    private void sendMessage(String message){
+    public void sendMessage(String message){
         try {
             channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
             System.out.println(" [x] Sent '" + message + "'");
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void sendMessage(AuctionRoom auctionRoom){
+        try {
+            AuctionRoomSerializationHandler auctionRoomSerializationHandler = new AuctionRoomSerializationHandler();
+            String message = auctionRoomSerializationHandler.serialize(auctionRoom);
+            sendMessage(message);
         }
         catch(IOException e){
             e.printStackTrace();

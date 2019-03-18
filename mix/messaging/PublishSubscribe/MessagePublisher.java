@@ -1,5 +1,8 @@
 package messaging;
 
+import Classes.Auction;
+import Serializer.AuctionSerializationHandler;
+import com.fasterxml.jackson.core.JsonpCharacterEscapes;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -30,6 +33,17 @@ public class MessagePublisher {
             channel.exchangeDeclare(exchangeName, "fanout");
         }
         catch(IOException | TimeoutException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void SendMessage(Auction auction){
+        try{
+            AuctionSerializationHandler auctionSerializationHandler = new AuctionSerializationHandler();
+            String message = auctionSerializationHandler.serialize(auction);
+            SendMessage(message);
+        }
+        catch(IOException e){
             e.printStackTrace();
         }
     }

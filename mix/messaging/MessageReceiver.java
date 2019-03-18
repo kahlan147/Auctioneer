@@ -13,9 +13,14 @@ import java.util.concurrent.TimeoutException;
  */
 public class MessageReceiver {
 
-    private static String QUEUE_NAME = "test";
+    private IMessageReceiver messageReceiver;
+    private Channel channel;
 
-    public MessageReceiver(){
+    private static String QUEUE_NAME;
+
+    public MessageReceiver(String queueName, IMessageReceiver messageReceiver){
+        QUEUE_NAME = queueName;
+        this.messageReceiver = messageReceiver;
         setup();
     }
 
@@ -24,7 +29,7 @@ public class MessageReceiver {
             ConnectionFactory factory = new ConnectionFactory();
             factory.setHost("localhost");
             Connection connection = factory.newConnection();
-            Channel channel = connection.createChannel();
+            channel = connection.createChannel();
 
             channel.queueDeclare(QUEUE_NAME, false, false, false, null);
             System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
@@ -32,6 +37,7 @@ public class MessageReceiver {
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
                 String message = new String(delivery.getBody(), "UTF-8");
                 System.out.println(" [x] Received '" + message + "'");
+                messageReceiver.messageReceived(message);
             };
             channel.basicConsume(QUEUE_NAME, true, deliverCallback, consumerTag -> {
             });
@@ -40,5 +46,11 @@ public class MessageReceiver {
             e.printStackTrace();
         }
 
+    }
+
+    public String giveThings(){
+            String channelName = channel.getConnection().getClientProvidedName();
+            System.out.println(channelName);
+            return channelName;
     }
 }
