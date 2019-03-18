@@ -3,8 +3,10 @@ package AuctionOwner.Backend;
 import Classes.Auction;
 import Classes.AuctionRoom;
 import AuctionOwner.Frontend.AuctionOwnerController;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.scene.control.Alert;
 
 /**
@@ -27,13 +29,15 @@ public class AuctionOwner {
 
     public void CreateNewAuctionRoom(String name){
         auctionOwnerGateway.RPC_RequestNewAuctionRoom(name);
-        //String replyQueue = messageRPCClient.call(text);
-
-        //auctionRooms.add(new AuctionRoom(text));
     }
 
     public void addNewAuctionRoom(AuctionRoom auctionRoom){
-        auctionRooms.add(auctionRoom);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                auctionRooms.add(auctionRoom);
+            }
+        });
     }
 
     public void AddToAuction(String name, double startPrice){

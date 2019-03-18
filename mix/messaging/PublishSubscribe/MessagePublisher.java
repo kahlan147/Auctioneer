@@ -37,17 +37,6 @@ public class MessagePublisher {
         }
     }
 
-    public void SendMessage(Auction auction){
-        try{
-            AuctionSerializationHandler auctionSerializationHandler = new AuctionSerializationHandler();
-            String message = auctionSerializationHandler.serialize(auction);
-            SendMessage(message);
-        }
-        catch(IOException e){
-            e.printStackTrace();
-        }
-    }
-
     public void SendMessage(String message){
         try {
             channel.basicPublish(exchangeName, "", null, message.getBytes("UTF-8"));

@@ -1,6 +1,7 @@
 package messaging.RPC.CreateAuctionRoom;
 
 import AuctionBroker.Backend.AuctionBroker;
+import AuctionBroker.Backend.BrokerToOwnerGateway;
 import Classes.Auction;
 import Classes.AuctionRoom;
 import Serializer.AuctionRoomSerializationHandler;
@@ -16,9 +17,9 @@ public class RPCCreateAuctionRoomServer {
 
     private String RPC_QUEUE_NAME;
 
-    private AuctionBroker auctionBroker;
+    private BrokerToOwnerGateway auctionBroker;
 
-    public RPCCreateAuctionRoomServer(String queueName, AuctionBroker auctionBroker){
+    public RPCCreateAuctionRoomServer(String queueName, BrokerToOwnerGateway auctionBroker){
         this.RPC_QUEUE_NAME = queueName;
         this.auctionBroker = auctionBroker;
         setup();
@@ -34,13 +35,13 @@ public class RPCCreateAuctionRoomServer {
             channel.queueDeclare(RPC_QUEUE_NAME, false, false, false, null);
             channel.queuePurge(RPC_QUEUE_NAME);
 
-            channel.basicQos(1);
+            //channel.basicQos(1);
 
-            System.out.println(" [x] Awaiting RPC requests");
+            System.out.println(" [x] Awaiting RPC requests for creating auction room");
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
                 try {
                     String message = new String(delivery.getBody(), "UTF-8");
-                    AuctionRoom auctionRoom = createAuctionRoom(message, delivery.getProperties().getReplyTo());
+                    AuctionRoom auctionRoom = createAuctionRoom(message);
                     AuctionRoomSerializationHandler auctionRoomSerializationHandler = new AuctionRoomSerializationHandler();
                     String auctionRoomMessage = auctionRoomSerializationHandler.serialize(auctionRoom);
                     //Return the auction room to the requesting client
@@ -59,8 +60,8 @@ public class RPCCreateAuctionRoomServer {
         }
     }
 
-    private AuctionRoom createAuctionRoom(String name, String replyQueue){
-        return auctionBroker.createAuctionRoom(name, replyQueue);
+    private AuctionRoom createAuctionRoom(String name){
+        return auctionBroker.createAuctionRoom(name);
     }
 
 }
