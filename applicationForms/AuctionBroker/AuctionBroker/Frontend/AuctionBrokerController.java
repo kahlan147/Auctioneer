@@ -1,6 +1,7 @@
 package AuctionBroker.Frontend;
 
 import AuctionBroker.Backend.AuctionBroker;
+import Classes.Auction;
 import Classes.AuctionRoom;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
@@ -9,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -21,8 +23,11 @@ public class AuctionBrokerController extends Application {
     @FXML private TextField selectedAuctionItemName;
     @FXML private TextField selectedAuctionHighestBid;
     @FXML private TextField selectedAuctionHighestBidder;
+    @FXML private ProgressBar timeRemaining;
 
     private AuctionBroker auctionBroker;
+
+    private AuctionRoom selectedAuctionRoom;
 
     public static void main(String[] args){
         launch(args);
@@ -46,14 +51,27 @@ public class AuctionBrokerController extends Application {
     }
 
     public void OnClick_RoomsList(){
-        AuctionRoom auctionRoom = auctionRooms.getSelectionModel().getSelectedItem();
-        auctionBroker.SelectAuctionRoom(auctionRoom);
+        selectedAuctionRoom = auctionRooms.getSelectionModel().getSelectedItem();
+        auctionBroker.SelectAuctionRoom(selectedAuctionRoom);
     }
 
     public void showAuctionData(String itemName, String highestBid, String highestBidder){
         selectedAuctionItemName.setText(itemName);
         selectedAuctionHighestBid.setText(highestBid);
         selectedAuctionHighestBidder.setText(highestBidder);
+    }
+
+    public void anAuctionHasFinished(AuctionRoom auctionRoom){
+        if(auctionRoom == selectedAuctionRoom){
+            Auction selectedAuction = selectedAuctionRoom.getCurrentAuction();
+            showAuctionData(selectedAuction.getName(), Double.toString(selectedAuction.getHighestBid()), selectedAuction.getNameHighestBidder());
+        }
+    }
+
+    public void timePassed(){
+        if(selectedAuctionRoom != null && selectedAuctionRoom.getCurrentAuction() != null) {
+            timeRemaining.setProgress(selectedAuctionRoom.getCurrentAuction().getTimePassedPercentage());
+        }
     }
 
 }

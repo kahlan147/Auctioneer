@@ -4,8 +4,7 @@ import Serializer.JacksonDeserializers.AuctionRoomDeserializer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Niels Verheijen on 10/03/2019.
@@ -43,15 +42,28 @@ public class AuctionRoom{
         upcomingAuctions = new ArrayList<>();
     }
 
+
     public Auction getCurrentAuction(){
         return currentAuction;
     }
 
-    public void NewAuction(Auction auction){
+    public void newAuction(Auction auction){
+        auction.setMaxAuctionTime(30);
         upcomingAuctions.add(auction);
         if(currentAuction == null){
             currentAuction = upcomingAuctions.get(0);
         }
+    }
+
+    public boolean timePassed(int seconds){
+        if(currentAuction != null && currentAuction.timePassed(seconds)){
+            currentAuction = null;
+            if(upcomingAuctions.size() > 0){
+                currentAuction = upcomingAuctions.remove(0);
+            }
+            return true;
+        }
+        return false;
     }
 
     @Override

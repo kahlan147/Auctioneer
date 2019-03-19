@@ -6,11 +6,10 @@ import AuctionBroker.Frontend.AuctionBrokerController;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
-import messaging.PublishSubscribe.MessageSubscriber;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.UUID;
 
 /**
@@ -33,6 +32,32 @@ public class AuctionBroker {
 
         brokerToOwnerGateway = new BrokerToOwnerGateway(this);
         brokerToClientGateway = new BrokerToClientGateway(this);
+        timer();
+    }
+
+    private void timer(){
+        int secondsTillPing = 1;
+
+        int delay = secondsTillPing*1000;
+        int period = secondsTillPing*1000;
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            public void run() {
+                secondPassed();
+            }
+            }, delay, period);
+    }
+
+    private void secondPassed(){
+        auctionBrokerController.timePassed();
+        if(auctionRooms.size() > 0){
+            for(AuctionRoom auctionRoom : auctionRooms){
+                if(auctionRoom.timePassed(1)){
+                    auctionBrokerController.anAuctionHasFinished(auctionRoom);
+                }
+            }
+        }
+        auctionBrokerController.timePassed();
     }
 
     public void SelectAuctionRoom(AuctionRoom auctionRoom){
@@ -70,7 +95,7 @@ public class AuctionBroker {
     }
 
     public void addAuction(Auction auction){
-        findAuctionRoom(auction.getAuctionRoomId()).NewAuction(auction);
+        findAuctionRoom(auction.getAuctionRoomId()).newAuction(auction);
     }
 
 

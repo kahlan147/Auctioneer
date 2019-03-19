@@ -49,7 +49,7 @@ public class AuctionOwner {
         Auction auction = new Auction(name);
         auction.setAuctionRoomId(selectedAuctionRoom.getSubscribeChannel());
         auction.newBid(startPrice, "StartPrice");
-        selectedAuctionRoom.NewAuction(auction);
+        selectedAuctionRoom.newAuction(auction);
         auctionOwnerGateway.AddToAuction(auction);
         SelectAuctionRoom(selectedAuctionRoom);
     }
