@@ -4,7 +4,10 @@ import AuctionClient.Backend.AuctionClient;
 import Classes.Auction;
 import Classes.AuctionRoom;
 import Classes.ChannelNames;
+import Classes.ISubscriberGateway;
 import Serializer.AuctionRoomListSerializationHandler;
+import Serializer.AuctionSerializationHandler;
+import javafx.application.Platform;
 import messaging.PublishSubscribe.MessageSubscriber;
 import messaging.RPC.GetAuctionRooms.RPCGetAuctionRoomsClient;
 
@@ -14,16 +17,17 @@ import java.util.List;
 /**
  * Created by Niels Verheijen on 18/03/2019.
  */
-public class AuctionClientGateway {
+public class AuctionClientGateway implements ISubscriberGateway {
 
     private AuctionClient auctionClient;
 
     private AuctionRoomListSerializationHandler auctionRoomListSerializationHandler;
+    private AuctionSerializationHandler auctionSerializationHandler;
 
     private RPCGetAuctionRoomsClient rpcGetAuctionRoomsClient;
 
     private AuctionRoom connectedAuctionRoom;
-    private MessageSubscriber connectedSubscriber;
+    private MessageSubscriber messageSubscriber;
 
     public AuctionClientGateway(AuctionClient auctionClient){
         this.auctionClient = auctionClient;
@@ -33,15 +37,17 @@ public class AuctionClientGateway {
     }
 
     private void setupConnections(){
-        //rpcGetAuctionRoomsClient = new RPCGetAuctionRoomsClient(ChannelNames.RPC_REQUESTAUCTIONROOMS, this);
+        rpcGetAuctionRoomsClient = new RPCGetAuctionRoomsClient(ChannelNames.RPC_REQUESTAUCTIONROOMS, this);
+        messageSubscriber = new MessageSubscriber(this);
+        messageSubscriber.createNewChannel(ChannelNames.TIMEPASSEDCHANNEL);
     }
 
     private void setupSerializers(){
         auctionRoomListSerializationHandler = new AuctionRoomListSerializationHandler();
+        auctionSerializationHandler = new AuctionSerializationHandler();
     }
 
     public void requestAuctionRooms(){
-        rpcGetAuctionRoomsClient = new RPCGetAuctionRoomsClient(ChannelNames.RPC_REQUESTAUCTIONROOMS, this);
         rpcGetAuctionRoomsClient.call();
     }
 
@@ -49,7 +55,6 @@ public class AuctionClientGateway {
         try{
             List<AuctionRoom> auctionRooms = auctionRoomListSerializationHandler.deserialize(serializedRooms);
             auctionClient.addAuctionRooms(auctionRooms);
-            rpcGetAuctionRoomsClient.close();
         }
         catch(IOException e){
             e.printStackTrace();
@@ -57,11 +62,20 @@ public class AuctionClientGateway {
     }
 
     public void connectToAuctionRoom(AuctionRoom auctionRoom){
-        this.connectedAuctionRoom = auctionRoom;
+        messageSubscriber.createNewChannel(auctionRoom.getSubscribeChannel());
     }
 
     public void disconnectFromAuctionRoom(){
         this.connectedAuctionRoom = null;
-        this.connectedSubscriber = null;
+    }
+
+    @Override
+    public void messageReceived(String message) {
+        try {
+            Auction auction = auctionSerializationHandler.deserialize(message);
+            auctionClient.newAuctionReceived(auction);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

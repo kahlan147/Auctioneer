@@ -27,7 +27,7 @@ public class AuctionOwner {
         auctionOwnerGateway = new AuctionOwnerGateway(this);
     }
 
-    public void CreateNewAuctionRoom(String name){
+    public void createNewAuctionRoom(String name){
         auctionOwnerGateway.RPC_RequestNewAuctionRoom(name);
     }
 
@@ -40,21 +40,23 @@ public class AuctionOwner {
         });
     }
 
-    public void AddToAuction(String name, double startPrice){
+    public void addToAuction(String name, double startPrice){
         if(selectedAuctionRoom == null){
             Alert alert = new Alert(Alert.AlertType.ERROR, "Please select an auction room first");
             alert.show();
             return;
         }
         Auction auction = new Auction(name);
-        auction.setAuctionRoomId(selectedAuctionRoom.getSubscribeChannel());
+        auction.setAuctionStartTime(0);
+        auction.setAuctionDuration(50);
+        auction.setAuctionRoomId(selectedAuctionRoom.getId());
         auction.newBid(startPrice, "StartPrice");
         selectedAuctionRoom.newAuction(auction);
         auctionOwnerGateway.AddToAuction(auction);
-        SelectAuctionRoom(selectedAuctionRoom);
+        selectAuctionRoom(selectedAuctionRoom);
     }
 
-    public void SelectAuctionRoom(AuctionRoom auctionRoom){
+    public void selectAuctionRoom(AuctionRoom auctionRoom){
         selectedAuctionRoom = auctionRoom;
         Auction currentAuction = selectedAuctionRoom.getCurrentAuction();
         if(currentAuction != null){

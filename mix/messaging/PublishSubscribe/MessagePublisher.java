@@ -53,7 +53,6 @@ public class MessagePublisher {
         try {
             Channel channel = channelMap.get(exchangeName);
             channel.basicPublish(exchangeName, "", null, message.getBytes("UTF-8"));
-            System.out.println(" [x] Sent '" + message + "'");
         }
         catch(IOException e){
             e.printStackTrace();

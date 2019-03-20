@@ -64,16 +64,18 @@ public class AuctionOwnerController extends Application {
             alert.show();
             return;
         }
-        auctionOwner.AddToAuction(itemName, startPrice);
+        auctionOwner.addToAuction(itemName, startPrice);
     }
 
     public void OnClick_CreateNewAuctionRoom(){
-        auctionOwner.CreateNewAuctionRoom(newAuctionRoomName.getText());
+        auctionOwner.createNewAuctionRoom(newAuctionRoomName.getText());
     }
 
     public void OnClick_AuctionRoomClicked(){
         AuctionRoom auctionRoom = auctionRoomsList.getSelectionModel().getSelectedItem();
-        auctionOwner.SelectAuctionRoom(auctionRoom);
+        if(auctionRoom != null){
+            auctionOwner.selectAuctionRoom(auctionRoom);
+        }
     }
 
     public void showAuctionData(String itemName, String highestBid, String highestBidder){

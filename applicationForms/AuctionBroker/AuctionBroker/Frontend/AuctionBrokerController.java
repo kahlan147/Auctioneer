@@ -52,7 +52,9 @@ public class AuctionBrokerController extends Application {
 
     public void OnClick_RoomsList(){
         selectedAuctionRoom = auctionRooms.getSelectionModel().getSelectedItem();
-        auctionBroker.SelectAuctionRoom(selectedAuctionRoom);
+        if(selectedAuctionRoom != null){
+            auctionBroker.SelectAuctionRoom(selectedAuctionRoom);
+        }
     }
 
     public void showAuctionData(String itemName, String highestBid, String highestBidder){
@@ -64,7 +66,9 @@ public class AuctionBrokerController extends Application {
     public void anAuctionHasFinished(AuctionRoom auctionRoom){
         if(auctionRoom == selectedAuctionRoom){
             Auction selectedAuction = selectedAuctionRoom.getCurrentAuction();
-            showAuctionData(selectedAuction.getName(), Double.toString(selectedAuction.getHighestBid()), selectedAuction.getNameHighestBidder());
+            if(selectedAuction != null){
+                showAuctionData(selectedAuction.getName(), Double.toString(selectedAuction.getHighestBid()), selectedAuction.getNameHighestBidder());
+            }
         }
     }
 

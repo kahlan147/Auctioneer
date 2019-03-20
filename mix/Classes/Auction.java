@@ -19,7 +19,11 @@ public class Auction {
     @JsonProperty("auctionRoomId")
     private String auctionRoomId;
 
-    private int maxAuctionTime;
+    @JsonProperty("auctionStartTime")
+    private int auctionStartTime;
+    @JsonProperty("auctionDuration")
+    private int auctionDuration;
+
     private int currentAuctionTime;
 
     public Auction(String name){
@@ -60,20 +64,23 @@ public class Auction {
         }
     }
 
-    public void setMaxAuctionTime(int maxAuctionTime){
-        this.maxAuctionTime = maxAuctionTime;
-        this.currentAuctionTime = maxAuctionTime;
+    public void setAuctionStartTime(int auctionStartTime){
+        this.auctionStartTime = auctionStartTime;
     }
 
-    public boolean timePassed(int seconds){
-        currentAuctionTime -= seconds;
-        if(currentAuctionTime <= 0){
-            return true;
+    public void setAuctionDuration(int auctionDuration){
+        if(auctionDuration <= 0){
+            auctionDuration = 1;
         }
-        return false;
+        this.auctionDuration = auctionDuration;
+    }
+
+    public boolean timePassed(int currentAuctionTime){
+        this.currentAuctionTime = currentAuctionTime;
+        return(this.auctionStartTime + this.auctionDuration < this.currentAuctionTime);
     }
 
     public float getTimePassedPercentage(){
-        return (float)currentAuctionTime / (float)maxAuctionTime;
+        return  ((1f / (float)auctionDuration) * ((float)currentAuctionTime - (float)auctionStartTime));
     }
 }

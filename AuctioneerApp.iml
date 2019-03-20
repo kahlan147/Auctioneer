@@ -7,6 +7,7 @@
       <sourceFolder url="file://$MODULE_DIR$/applicationForms/AuctionBroker" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/applicationForms/AuctionClient" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/applicationForms/AuctionOwner" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/applicationForms/TimeServer" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/out" />
     </content>
     <orderEntry type="inheritedJdk" />

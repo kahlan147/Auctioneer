@@ -1,12 +1,12 @@
 package AuctionClient.Backend;
 
-import AuctionClient.Frontend.AuctionClient.AuctionClientController;
+import AuctionClient.Frontend.AuctionClientController;
+import Classes.Auction;
 import Classes.AuctionRoom;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,14 +18,13 @@ public class AuctionClient {
     private ObservableList<AuctionRoom> auctionRooms;
 
     private AuctionClientGateway auctionClientGateway;
-    private List<AuctionClientRoom> auctionClientRooms;
+    private AuctionRoom connectedAuctionRoom;
 
     public AuctionClient(AuctionClientController auctionClientController){
         this.auctionClientController = auctionClientController;
         auctionRooms = FXCollections.<AuctionRoom>observableArrayList();
         this.auctionClientController.setObservableList(auctionRooms);
         auctionClientGateway = new AuctionClientGateway(this);
-        auctionClientRooms = new ArrayList<>();
     }
 
     public void getAuctionRoomsFromBroker(){
@@ -42,17 +41,43 @@ public class AuctionClient {
         });
     }
 
+    public void timePassed(int seconds){
+        if(connectedAuctionRoom != null){
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    Auction auction = connectedAuctionRoom.getCurrentAuction();
+                    if(auction != null) {
+                        auction.timePassed(seconds);
+                        auctionClientController.timePassed(auction);
+                    }
+                }
+            });
+        }
+    }
+
     public void connectTo(AuctionRoom auctionRoom){
-        createAuctionClientRoom(auctionRoom);
+        this.connectedAuctionRoom = auctionRoom;
+        auctionClientGateway.connectToAuctionRoom(auctionRoom);
+        auctionClientController.connected();
     }
 
-    private void createAuctionClientRoom(AuctionRoom auctionRoom){
-        AuctionClientRoom auctionClientRoom = new AuctionClientRoom(auctionRoom, this);
-        auctionClientRooms.add(auctionClientRoom);
+    public void disconnect(){
+        this.connectedAuctionRoom = null;
+        auctionClientGateway.disconnectFromAuctionRoom();
     }
 
-    public void disconnect(AuctionClientRoom auctionClientRoom){
-        auctionClientRooms.remove(auctionClientRoom);
+    public void newAuctionReceived(Auction auction){
+        if(connectedAuctionRoom != null){
+            connectedAuctionRoom.newAuction(auction);
+
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    auctionClientController.showAuction(connectedAuctionRoom.getCurrentAuction());
+                }
+            });
+        }
     }
 
 }

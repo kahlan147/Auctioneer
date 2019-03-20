@@ -22,7 +22,6 @@ public class BrokerToClientGateway {
 
     private AuctionBroker auctionBroker;
 
-    private Map<AuctionRoom, MessagePublisher> auctionRoomPublishers;
     private AuctionRoomListSerializationHandler auctionRoomListSerializationHandler;
     private AuctionSerializationHandler auctionSerializationHandler;
     private RPCGetAuctionRoomsServer rpcGetAuctionRoomsServer;
@@ -30,7 +29,6 @@ public class BrokerToClientGateway {
 
     public BrokerToClientGateway(AuctionBroker auctionBroker){
         this.auctionBroker = auctionBroker;
-        this.auctionRoomPublishers = new HashMap<>();
         setupSerializers();
         setupConnections();
     }
@@ -43,16 +41,17 @@ public class BrokerToClientGateway {
     private void setupConnections(){
         rpcGetAuctionRoomsServer = new RPCGetAuctionRoomsServer(ChannelNames.RPC_REQUESTAUCTIONROOMS, this);
         messagePublisher = new MessagePublisher();
+        messagePublisher.createChannel(ChannelNames.TIMEPASSEDCHANNEL);
     }
 
     public void addPublisherToAuctionRoom(AuctionRoom auctionRoom){
         messagePublisher.createChannel(auctionRoom.getSubscribeChannel());
     }
 
-    public void publishAuction(AuctionRoom auctionRoom){
+    public void publishNewAuction(AuctionRoom auctionRoom){
         try{
             String serializedAuction = auctionSerializationHandler.serialize(auctionRoom.getCurrentAuction());
-            auctionRoomPublishers.get(auctionRoom).SendMessage(auctionRoom.getSubscribeChannel(), serializedAuction);
+            messagePublisher.SendMessage(auctionRoom.getSubscribeChannel(),serializedAuction);
         }
         catch(IOException e){
             e.printStackTrace();
@@ -62,12 +61,15 @@ public class BrokerToClientGateway {
     public String requestAuctionRooms(){
         try{
             List<AuctionRoom> auctionRooms = auctionBroker.getAuctionRooms();
-            String serializedRooms = auctionRoomListSerializationHandler.serialize(auctionRooms);
-            return serializedRooms;
+            return auctionRoomListSerializationHandler.serialize(auctionRooms);
         }
         catch(IOException e){
             e.printStackTrace();
         }
         return "";
+    }
+
+    public void timePassed(int seconds){
+        messagePublisher.SendMessage(ChannelNames.TIMEPASSEDCHANNEL, Integer.toString(seconds));
     }
 }

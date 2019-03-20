@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="444.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AuctionClient.Frontend.AuctionClientController">
+   <children>
+      <Pane fx:id="noConnectionPane" prefHeight="400.0" prefWidth="444.0">
+         <children>
+            <Pane layoutX="14.0" layoutY="15.0" prefHeight="371.0" prefWidth="187.0">
+               <children>
+                  <Label layoutY="253.0" text="Name" />
+                  <TextField fx:id="userName" layoutY="274.0" />
+                  <Button layoutX="48.0" layoutY="317.0" mnemonicParsing="false" onMouseClicked="#OnClick_Connect" text="Connect" />
+                  <Button layoutX="116.0" layoutY="6.0" mnemonicParsing="false" onMouseClicked="#OnClick_Refresh" text="Refresh" />
+               </children>
+            </Pane>
+            <Pane layoutX="214.0" layoutY="7.0" prefHeight="371.0" prefWidth="230.0">
+               <children>
+                  <ListView fx:id="rooms" layoutX="2.0" layoutY="5.0" prefHeight="361.0" prefWidth="226.0" />
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <Pane fx:id="connectedPane" disable="true" opacity="0.0" prefHeight="400.0" prefWidth="444.0">
+         <children>
+            <Label layoutX="105.0" layoutY="38.0" text="Item:" />
+            <TextField fx:id="itemName" editable="false" layoutX="105.0" layoutY="59.0" />
+            <Label layoutX="105.0" layoutY="108.0" text="Highest bid:" />
+            <TextField fx:id="highestBid" editable="false" layoutX="105.0" layoutY="129.0" />
+            <Label layoutX="105.0" layoutY="190.0" text="Time remaining:" />
+            <ProgressBar fx:id="timeRemaining" layoutX="98.0" layoutY="211.0" prefWidth="200.0" progress="0.0" />
+            <Label layoutX="105.0" layoutY="272.0" text="Your bid:" />
+            <TextField fx:id="myBid" layoutX="105.0" layoutY="293.0" />
+            <Button layoutX="166.0" layoutY="348.0" mnemonicParsing="false" onMouseClicked="#OnClick_Bid" text="Bid" />
+            <Button layoutX="336.0" layoutY="348.0" mnemonicParsing="false" onMouseClicked="#OnClick_Disconnect" text="Disconnect" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

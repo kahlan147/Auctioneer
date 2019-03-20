@@ -12,30 +12,47 @@ import java.util.*;
 @JsonDeserialize(using = AuctionRoomDeserializer.class)
 public class AuctionRoom{
 
+    @JsonProperty("id")
+    private String id;
+
     @JsonProperty("name")
     private String name;
 
     @JsonProperty("subscribeChannel")
     private String subscribeChannel;
 
-    @JsonProperty("replyChannel")
-    private String replyChannel;
+    @JsonProperty("clientReplyChannel")
+    private String clientReplyChannel;
+
+    @JsonProperty("ownerReplyChannel")
+    private String ownerReplyChannel;
 
     private List<Auction> upcomingAuctions;
     private Auction currentAuction;
 
-    public void setChannels(String subscribeChannel, String replyChannel){
+    public void setChannels(String subscribeChannel, String clientReplyChannel, String ownerReplyChannel){
         this.subscribeChannel = subscribeChannel;
-        this.replyChannel = replyChannel;
+        this.clientReplyChannel = clientReplyChannel;
+        this.ownerReplyChannel = ownerReplyChannel;
+    }
+
+    public void setId(String id){
+        this.id = id;
+    }
+
+    public String getId(){
+        return id;
     }
 
     public String getSubscribeChannel(){
         return subscribeChannel;
     }
 
-    public String getReplyChannel(){
-        return replyChannel;
+    public String getClientReplyChannel(){
+        return clientReplyChannel;
     }
+
+    public String getOwnerReplyChannel(){return ownerReplyChannel;}
 
     public AuctionRoom(String name){
         this.name = name;
@@ -48,15 +65,14 @@ public class AuctionRoom{
     }
 
     public void newAuction(Auction auction){
-        auction.setMaxAuctionTime(30);
         upcomingAuctions.add(auction);
         if(currentAuction == null){
             currentAuction = upcomingAuctions.get(0);
         }
     }
 
-    public boolean timePassed(int seconds){
-        if(currentAuction != null && currentAuction.timePassed(seconds)){
+    public boolean timePassed(int newTime){
+        if(currentAuction != null && currentAuction.timePassed(newTime)){
             currentAuction = null;
             if(upcomingAuctions.size() > 0){
                 currentAuction = upcomingAuctions.remove(0);
