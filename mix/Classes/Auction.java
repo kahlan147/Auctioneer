@@ -29,12 +29,14 @@ public class Auction {
     public Auction(String name){
         this.name = name;
         highestBid = -.00001;
+        auctionStartTime = 0;
     }
 
     public Auction(String name, double highestBid, String nameHighestBidder){
         this.name = name;
         this.highestBid = highestBid;
         this.nameHighestBidder = nameHighestBidder;
+        auctionStartTime = 0;
     }
 
     public void setAuctionRoomId(String auctionRoomId){

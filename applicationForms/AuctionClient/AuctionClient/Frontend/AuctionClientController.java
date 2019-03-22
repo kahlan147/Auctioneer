@@ -32,6 +32,7 @@ public class AuctionClientController extends Application{
     @FXML private TextField myBid;
 
     private AuctionClient auctionClient;
+    private Auction shownAuction;
 
     public void initialize(){
         auctionClient = new AuctionClient(this);
@@ -57,13 +58,23 @@ public class AuctionClientController extends Application{
     }
 
     public void showAuction(Auction auction){
-        itemName.setText(auction.getName());
-        highestBid.setText(Double.toString(auction.getHighestBid()));
-        timeRemaining.setProgress(auction.getTimePassedPercentage());
+        this.shownAuction = auction;
+        if(auction != null){
+            itemName.setText(auction.getName());
+            highestBid.setText(Double.toString(auction.getHighestBid()));
+            timeRemaining.setProgress(auction.getTimePassedPercentage());
+        }
+        else{
+            itemName.setText("");
+            highestBid.setText("");
+            timeRemaining.setProgress(0);
+        }
     }
 
-    public void timePassed(Auction auction){
-        timeRemaining.setProgress(auction.getTimePassedPercentage());
+    public void timePassed(){
+        if(shownAuction != null){
+            timeRemaining.setProgress(shownAuction.getTimePassedPercentage());
+        }
     }
 
     public void OnClick_Connect(){

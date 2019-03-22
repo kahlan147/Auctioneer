@@ -21,8 +21,13 @@ public class BrokerToTimeServerGateway implements ISubscriberGateway {
     }
 
     @Override
-    public void messageReceived(String message) {
+    public void timeReceived(String message) {
         int timePassed = Integer.parseInt(message);
         auctionBroker.timePassed(timePassed);
+    }
+
+    @Override
+    public void auctionReceived(String message) {
+        //Not needed.
     }
 }

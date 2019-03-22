@@ -1,12 +1,16 @@
 package messaging;
 
 import Classes.AuctionRoom;
+import Classes.ChannelNames;
 import Serializer.AuctionRoomSerializationHandler;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.Channel;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeoutException;
 
 /**
@@ -14,11 +18,11 @@ import java.util.concurrent.TimeoutException;
  */
 public class MessageSender {
 
-    private String QUEUE_NAME;
-    private Channel channel;
+    private Connection connection;
+    private Map<String, Channel> channelMap;
 
-    public MessageSender(String queueName){
-        this.QUEUE_NAME = queueName;
+    public MessageSender(){
+        channelMap = new HashMap<>();
         setup();
     }
 
@@ -26,18 +30,28 @@ public class MessageSender {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
         try {
-            Connection connection = factory.newConnection();
-            channel = connection.createChannel();
-            channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+            connection = factory.newConnection();
         }
         catch (TimeoutException | IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void sendMessage(String message){
+    public void createChannel(String channelName){
         try {
-            channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
+            Channel channel = connection.createChannel();
+            channel.queueDeclare(channelName, false, false, false, null);
+            channelMap.put(channelName,channel);
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void sendMessage(String channelName, String message){
+        try {
+            Channel channel = channelMap.get(channelName);
+            channel.basicPublish("", channelName, null, message.getBytes());
             System.out.println(" [x] Sent '" + message + "'");
         }
         catch(IOException e){

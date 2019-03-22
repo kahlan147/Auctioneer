@@ -1,6 +1,7 @@
 package AuctionOwner.Frontend;
 
 import AuctionOwner.Backend.AuctionOwner;
+import Classes.Auction;
 import Classes.AuctionRoom;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
@@ -10,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -26,11 +28,12 @@ public class AuctionOwnerController extends Application {
     @FXML private TextField selectedAuctionItemName;
     @FXML private TextField selectedAuctionHighestBid;
     @FXML private TextField selectedAuctionHighestBidder;
+    @FXML private ProgressBar timeRemaining;
 
     @FXML private ListView<AuctionRoom> auctionRoomsList;
 
     private AuctionOwner auctionOwner;
-
+    private AuctionRoom selectedAuctionRoom;
 
     public static void main(String[] args){
         launch(args);
@@ -72,15 +75,29 @@ public class AuctionOwnerController extends Application {
     }
 
     public void OnClick_AuctionRoomClicked(){
-        AuctionRoom auctionRoom = auctionRoomsList.getSelectionModel().getSelectedItem();
-        if(auctionRoom != null){
-            auctionOwner.selectAuctionRoom(auctionRoom);
+        selectedAuctionRoom = auctionRoomsList.getSelectionModel().getSelectedItem();
+        if(selectedAuctionRoom != null){
+            auctionOwner.selectAuctionRoom(selectedAuctionRoom);
         }
     }
 
-    public void showAuctionData(String itemName, String highestBid, String highestBidder){
-        selectedAuctionItemName.setText(itemName);
-        selectedAuctionHighestBid.setText(highestBid);
-        selectedAuctionHighestBidder.setText(highestBidder);
+    public void showAuctionData(Auction auction){
+        if(auction == null){
+            selectedAuctionItemName.setText("");
+            selectedAuctionHighestBid.setText("");
+            selectedAuctionHighestBidder.setText("");
+        }
+        else{
+            selectedAuctionItemName.setText(auction.getName());
+            selectedAuctionHighestBid.setText(Double.toString(auction.getHighestBid()));
+            selectedAuctionHighestBidder.setText(auction.getNameHighestBidder());
+            timeRemaining.setProgress(auction.getTimePassedPercentage());
+        }
+    }
+
+    public void timePassed(){
+        if(selectedAuctionRoom != null && selectedAuctionRoom.getCurrentAuction() != null) {
+            timeRemaining.setProgress(selectedAuctionRoom.getCurrentAuction().getTimePassedPercentage());
+        }
     }
 }

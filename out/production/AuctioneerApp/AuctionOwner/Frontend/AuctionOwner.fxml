@@ -29,7 +29,7 @@
             <Button layoutX="9.0" layoutY="155.0" mnemonicParsing="false" onMouseClicked="#OnClick_AddToAuction" text="Add to auction" />
          </children>
       </Pane>
-      <Pane layoutX="380.0" layoutY="250.0" prefHeight="200.0" prefWidth="200.0">
+      <Pane layoutX="380.0" layoutY="224.0" prefHeight="253.0" prefWidth="200.0">
          <children>
             <Label layoutX="6.0" layoutY="4.0" text="Item" />
             <TextField fx:id="selectedAuctionItemName" editable="false" layoutX="7.0" layoutY="25.0" />
@@ -37,6 +37,8 @@
             <TextField fx:id="selectedAuctionHighestBid" editable="false" layoutX="7.0" layoutY="87.0" />
             <Label layoutX="7.0" layoutY="132.0" text="Highest bidder" />
             <TextField fx:id="selectedAuctionHighestBidder" editable="false" layoutX="7.0" layoutY="155.0" />
+            <Label layoutX="3.0" layoutY="195.0" text="Time remaining:" />
+            <ProgressBar fx:id="timeRemaining" layoutX="5.0" layoutY="216.0" prefWidth="200.0" progress="0.0" />
          </children>
       </Pane>
    </children>

@@ -5,5 +5,7 @@ package Classes;
  */
 public interface ISubscriberGateway {
 
-    void messageReceived(String message);
+    void timeReceived(String message);
+    void auctionReceived(String message);
+
 }

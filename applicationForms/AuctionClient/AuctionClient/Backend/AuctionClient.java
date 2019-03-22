@@ -20,11 +20,14 @@ public class AuctionClient {
     private AuctionClientGateway auctionClientGateway;
     private AuctionRoom connectedAuctionRoom;
 
+    private int currentTime;
+
     public AuctionClient(AuctionClientController auctionClientController){
         this.auctionClientController = auctionClientController;
         auctionRooms = FXCollections.<AuctionRoom>observableArrayList();
         this.auctionClientController.setObservableList(auctionRooms);
         auctionClientGateway = new AuctionClientGateway(this);
+        currentTime = 0;
     }
 
     public void getAuctionRoomsFromBroker(){
@@ -41,15 +44,16 @@ public class AuctionClient {
         });
     }
 
-    public void timePassed(int seconds){
+    public void timePassed(int newTime){
+        this.currentTime = newTime;
         if(connectedAuctionRoom != null){
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
                     Auction auction = connectedAuctionRoom.getCurrentAuction();
                     if(auction != null) {
-                        auction.timePassed(seconds);
-                        auctionClientController.timePassed(auction);
+                        auction.timePassed(currentTime);
+                        auctionClientController.timePassed();
                     }
                 }
             });

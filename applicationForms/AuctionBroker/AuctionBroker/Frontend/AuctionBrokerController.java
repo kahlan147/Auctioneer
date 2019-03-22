@@ -57,17 +57,26 @@ public class AuctionBrokerController extends Application {
         }
     }
 
-    public void showAuctionData(String itemName, String highestBid, String highestBidder){
-        selectedAuctionItemName.setText(itemName);
-        selectedAuctionHighestBid.setText(highestBid);
-        selectedAuctionHighestBidder.setText(highestBidder);
+    public void showAuctionData(Auction auction){
+        if(auction != null) {
+            selectedAuctionItemName.setText(auction.getName());
+            selectedAuctionHighestBid.setText(Double.toString(auction.getHighestBid()));
+            selectedAuctionHighestBidder.setText(auction.getNameHighestBidder());
+            timeRemaining.setProgress(auction.getTimePassedPercentage());
+        }
+        else{
+            selectedAuctionItemName.setText("");
+            selectedAuctionHighestBid.setText("");
+            selectedAuctionHighestBidder.setText("");
+            timeRemaining.setProgress(0);
+        }
     }
 
     public void anAuctionHasFinished(AuctionRoom auctionRoom){
         if(auctionRoom == selectedAuctionRoom){
             Auction selectedAuction = selectedAuctionRoom.getCurrentAuction();
             if(selectedAuction != null){
-                showAuctionData(selectedAuction.getName(), Double.toString(selectedAuction.getHighestBid()), selectedAuction.getNameHighestBidder());
+                showAuctionData(selectedAuction);
             }
         }
     }

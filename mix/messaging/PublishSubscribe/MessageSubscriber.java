@@ -55,7 +55,12 @@ public class MessageSubscriber {
 
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
                 String message = new String(delivery.getBody(), "UTF-8");
-                newAuctionReceived(message);
+                if(channelName == ChannelNames.TIMEPASSEDCHANNEL) {
+                    newTimeReceived(message);
+                }
+                else {
+                    newAuctionReceived(message);
+                }
             };
             channel.basicConsume(queueName, true, deliverCallback, consumerTag -> {
             });
@@ -65,7 +70,11 @@ public class MessageSubscriber {
         }
     }
 
+    private void newTimeReceived(String message){
+        subscriberGateway.timeReceived(message);
+    }
+
     private void newAuctionReceived(String message){
-        subscriberGateway.messageReceived(message);
+        subscriberGateway.auctionReceived(message);
     }
 }

@@ -59,16 +59,17 @@ public class AuctionRoom{
         upcomingAuctions = new ArrayList<>();
     }
 
-
     public Auction getCurrentAuction(){
         return currentAuction;
     }
 
-    public void newAuction(Auction auction){
+    public boolean newAuction(Auction auction){
         upcomingAuctions.add(auction);
         if(currentAuction == null){
-            currentAuction = upcomingAuctions.get(0);
+            currentAuction = upcomingAuctions.remove(0);
+            return true;
         }
+        return false;
     }
 
     public boolean timePassed(int newTime){

@@ -70,7 +70,13 @@ public class AuctionClientGateway implements ISubscriberGateway {
     }
 
     @Override
-    public void messageReceived(String message) {
+    public void timeReceived(String message) {
+        int newTime = Integer.parseInt(message);
+        auctionClient.timePassed(newTime);
+    }
+
+    @Override
+    public void auctionReceived(String message) {
         try {
             Auction auction = auctionSerializationHandler.deserialize(message);
             auctionClient.newAuctionReceived(auction);

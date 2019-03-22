@@ -19,12 +19,14 @@ public class AuctionOwner {
     private AuctionRoom selectedAuctionRoom;
 
     private AuctionOwnerGateway auctionOwnerGateway;
+    private int currentTime;
 
     public AuctionOwner(AuctionOwnerController auctionOwnerController){
         this.auctionOwnerController = auctionOwnerController;
         auctionRooms = FXCollections.<AuctionRoom>observableArrayList();
         auctionOwnerController.SetObservableList(auctionRooms);
         auctionOwnerGateway = new AuctionOwnerGateway(this);
+        currentTime = 0;
     }
 
     public void createNewAuctionRoom(String name){
@@ -47,11 +49,9 @@ public class AuctionOwner {
             return;
         }
         Auction auction = new Auction(name);
-        auction.setAuctionStartTime(0);
         auction.setAuctionDuration(50);
         auction.setAuctionRoomId(selectedAuctionRoom.getId());
         auction.newBid(startPrice, "StartPrice");
-        selectedAuctionRoom.newAuction(auction);
         auctionOwnerGateway.AddToAuction(auction);
         selectAuctionRoom(selectedAuctionRoom);
     }
@@ -60,11 +60,43 @@ public class AuctionOwner {
         selectedAuctionRoom = auctionRoom;
         Auction currentAuction = selectedAuctionRoom.getCurrentAuction();
         if(currentAuction != null){
-            auctionOwnerController.showAuctionData(currentAuction.getName(), Double.toString(currentAuction.getHighestBid()), currentAuction.getNameHighestBidder());
+            auctionOwnerController.showAuctionData(currentAuction);
         }
         else{
-            auctionOwnerController.showAuctionData("","","");
+            auctionOwnerController.showAuctionData(null);
         }
+    }
+
+    public void timePassed(int newTime){
+        this.currentTime = newTime;
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                if(auctionRooms.size() > 0) {
+                    for (AuctionRoom auctionRoom : auctionRooms) {
+                        if (auctionRoom.getCurrentAuction() != null) {
+                            auctionRoom.getCurrentAuction().timePassed(currentTime);
+                        }
+                    }
+                }
+            }
+        });
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                auctionOwnerController.timePassed();
+            }
+        });
+    }
+
+    public void addAuctionTo(Auction auction){
+        AuctionRoom auctionRoom = findAuctionRoom(auction.getAuctionRoomId());
+        auctionRoom.newAuction(auction);
+    }
+
+    private AuctionRoom findAuctionRoom(String auctionRoomId){
+        return auctionRooms.filtered(o -> o.getId().equals(auctionRoomId)).get(0);
     }
 
 }

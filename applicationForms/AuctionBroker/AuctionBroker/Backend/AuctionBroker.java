@@ -25,7 +25,7 @@ public class AuctionBroker {
     private BrokerToClientGateway brokerToClientGateway;
     private BrokerToTimeServerGateway brokerToTimeServerGateway;
 
-    int currentTime;
+    private int currentTime;
 
     public AuctionBroker(AuctionBrokerController auctionBrokerController){
         this.auctionBrokerController = auctionBrokerController;
@@ -36,7 +36,7 @@ public class AuctionBroker {
         brokerToOwnerGateway = new BrokerToOwnerGateway(this);
         brokerToClientGateway = new BrokerToClientGateway(this);
         brokerToTimeServerGateway = new BrokerToTimeServerGateway(this);
-        TESTING();
+
     }
 
     private void TESTING(){
@@ -56,11 +56,21 @@ public class AuctionBroker {
     }
 
     public void timePassed(int newTime){
+        currentTime = newTime;
         if(auctionRooms.size() > 0){
             for(AuctionRoom auctionRoom : auctionRooms){
                 if(auctionRoom.timePassed(newTime)){
-                    auctionBrokerController.anAuctionHasFinished(auctionRoom);
+                    if(auctionRoom.getCurrentAuction() != null) {
+                        auctionRoom.getCurrentAuction().setAuctionStartTime(this.currentTime);
+                    }
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            auctionBrokerController.anAuctionHasFinished(auctionRoom);
+                        }
+                    });
                     brokerToClientGateway.publishNewAuction(auctionRoom);
+                    brokerToOwnerGateway.publishNewAuction(auctionRoom);
                 }
             }
         }
@@ -74,12 +84,12 @@ public class AuctionBroker {
 
     public void SelectAuctionRoom(AuctionRoom auctionRoom){
         Auction currentAuction = auctionRoom.getCurrentAuction();
-        if(currentAuction != null){
-            auctionBrokerController.showAuctionData(currentAuction.getName(), Double.toString(currentAuction.getHighestBid()), currentAuction.getNameHighestBidder());
-        }
-        else{
-            auctionBrokerController.showAuctionData("","","");
-        }
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                auctionBrokerController.showAuctionData(currentAuction);
+            }
+        });
     }
 
     public AuctionRoom createAuctionRoom(String name){
@@ -109,7 +119,12 @@ public class AuctionBroker {
     }
 
     public void addAuction(Auction auction){
-        findAuctionRoom(auction.getAuctionRoomId()).newAuction(auction);
+        AuctionRoom auctionRoom = findAuctionRoom(auction.getAuctionRoomId());
+        boolean firstAuction = auctionRoom.newAuction(auction);
+        if(firstAuction){
+            auction.setAuctionStartTime(this.currentTime);
+            brokerToOwnerGateway.publishNewAuction(auctionRoom);
+        }
     }
 
 
