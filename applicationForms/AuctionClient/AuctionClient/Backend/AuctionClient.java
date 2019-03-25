@@ -20,6 +20,7 @@ public class AuctionClient {
     private AuctionClientGateway auctionClientGateway;
     private AuctionRoom connectedAuctionRoom;
 
+    private String username;
     private int currentTime;
 
     public AuctionClient(AuctionClientController auctionClientController){
@@ -60,6 +61,10 @@ public class AuctionClient {
         }
     }
 
+    public void setUserName(String username){
+        this.username = username;
+    }
+
     public void connectTo(AuctionRoom auctionRoom){
         this.connectedAuctionRoom = auctionRoom;
         auctionClientGateway.connectToAuctionRoom(auctionRoom);
@@ -73,8 +78,8 @@ public class AuctionClient {
 
     public void newAuctionReceived(Auction auction){
         if(connectedAuctionRoom != null){
-            connectedAuctionRoom.newAuction(auction);
-
+            connectedAuctionRoom.overrideCurrentAuction(auction);
+            auction.timePassed(currentTime);
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
@@ -82,6 +87,14 @@ public class AuctionClient {
                 }
             });
         }
+    }
+
+    public void bid(double price){
+        Auction auction = connectedAuctionRoom.getCurrentAuction();
+        if(!auction.newBid(price, username)){
+            return;
+        }
+        auctionClientGateway.placeBid(connectedAuctionRoom.getClientReplyChannel(), auction);
     }
 
 }

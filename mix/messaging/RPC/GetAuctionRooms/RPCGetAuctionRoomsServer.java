@@ -18,12 +18,10 @@ import java.util.concurrent.TimeoutException;
  */
 public class RPCGetAuctionRoomsServer {
 
-    private String RPC_QUEUE_NAME;
-
+    private Connection connection;
     private BrokerToClientGateway brokerToClientGateway;
 
-    public RPCGetAuctionRoomsServer(String queueName, BrokerToClientGateway brokerToClientGateway){
-        this.RPC_QUEUE_NAME = queueName;
+    public RPCGetAuctionRoomsServer(BrokerToClientGateway brokerToClientGateway){
         this.brokerToClientGateway = brokerToClientGateway;
         setup();
     }
@@ -31,12 +29,19 @@ public class RPCGetAuctionRoomsServer {
     private void setup(){
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
-
         try{
-            Connection connection = factory.newConnection();
+            connection = factory.newConnection();
+        }
+        catch (TimeoutException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setupRequestAuctionRooms(String queueName){
+        try{
             Channel channel = connection.createChannel();
-            channel.queueDeclare(RPC_QUEUE_NAME, false, false, false, null);
-            channel.queuePurge(RPC_QUEUE_NAME);
+            channel.queueDeclare(queueName, false, false, false, null);
+            channel.queuePurge(queueName);
 
             ///channel.basicQos(1);
 
@@ -54,12 +59,45 @@ public class RPCGetAuctionRoomsServer {
                 }
             };
             //Await calls and run a callback on arrival.
-            channel.basicConsume(RPC_QUEUE_NAME, false, deliverCallback, (consumerTag -> {
+            channel.basicConsume(queueName, false, deliverCallback, (consumerTag -> {
             }));
         }
-        catch (TimeoutException | IOException e) {
+        catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setupRequestAuction(String queueName){
+        try{
+            Channel channel = connection.createChannel();
+            channel.queueDeclare(queueName, false, false, false, null);
+            channel.queuePurge(queueName);
+
+            System.out.println(" [x] Awaiting RPC requests for auctionrooms");
+            DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+                try {
+                    System.out.println("received");
+                    String auctionRoomId = new String(delivery.getBody(), "UTF-8");
+                    String serializedAuction = getAuction(auctionRoomId);
+                    System.out.println(serializedAuction);
+                    //Return the auction rooms to the requesting client
+                    channel.basicPublish("", delivery.getProperties().getReplyTo(), null, serializedAuction.getBytes());
+                }
+                catch (RuntimeException e) {
+                    System.out.println(" [.] " + e.toString());
+                }
+            };
+            //Await calls and run a callback on arrival.
+            channel.basicConsume(queueName, false, deliverCallback, (consumerTag -> {
+            }));
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String getAuction(String auctionRoomId){
+        return brokerToClientGateway.requestAuction(auctionRoomId);
     }
 
     private String getAuctionRooms() {

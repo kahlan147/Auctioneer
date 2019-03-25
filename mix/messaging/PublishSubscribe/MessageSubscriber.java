@@ -55,7 +55,7 @@ public class MessageSubscriber {
 
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
                 String message = new String(delivery.getBody(), "UTF-8");
-                if(channelName == ChannelNames.TIMEPASSEDCHANNEL) {
+                if(channelName.equals(ChannelNames.TIMEPASSEDCHANNEL)) {
                     newTimeReceived(message);
                 }
                 else {
@@ -75,6 +75,7 @@ public class MessageSubscriber {
     }
 
     private void newAuctionReceived(String message){
+        System.out.println("Auction received: " + message);
         subscriberGateway.auctionReceived(message);
     }
 }

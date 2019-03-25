@@ -8,6 +8,7 @@ import Classes.ISubscriberGateway;
 import Serializer.AuctionRoomListSerializationHandler;
 import Serializer.AuctionSerializationHandler;
 import javafx.application.Platform;
+import messaging.MessageSender;
 import messaging.PublishSubscribe.MessageSubscriber;
 import messaging.RPC.GetAuctionRooms.RPCGetAuctionRoomsClient;
 
@@ -28,6 +29,8 @@ public class AuctionClientGateway implements ISubscriberGateway {
 
     private AuctionRoom connectedAuctionRoom;
     private MessageSubscriber messageSubscriber;
+    private MessageSender messageSender;
+
 
     public AuctionClientGateway(AuctionClient auctionClient){
         this.auctionClient = auctionClient;
@@ -37,9 +40,10 @@ public class AuctionClientGateway implements ISubscriberGateway {
     }
 
     private void setupConnections(){
-        rpcGetAuctionRoomsClient = new RPCGetAuctionRoomsClient(ChannelNames.RPC_REQUESTAUCTIONROOMS, this);
+        rpcGetAuctionRoomsClient = new RPCGetAuctionRoomsClient(this);
         messageSubscriber = new MessageSubscriber(this);
         messageSubscriber.createNewChannel(ChannelNames.TIMEPASSEDCHANNEL);
+        messageSender = new MessageSender();
     }
 
     private void setupSerializers(){
@@ -48,7 +52,11 @@ public class AuctionClientGateway implements ISubscriberGateway {
     }
 
     public void requestAuctionRooms(){
-        rpcGetAuctionRoomsClient.call();
+        rpcGetAuctionRoomsClient.requestAuctionRooms(ChannelNames.RPC_REQUESTAUCTIONROOMS);
+    }
+
+    public void requestAuction(String auctionRoomId){
+        rpcGetAuctionRoomsClient.requestAuction(ChannelNames.RPC_REQUESTAUCTION, auctionRoomId);
     }
 
     public void roomsReceived(String serializedRooms){
@@ -63,10 +71,22 @@ public class AuctionClientGateway implements ISubscriberGateway {
 
     public void connectToAuctionRoom(AuctionRoom auctionRoom){
         messageSubscriber.createNewChannel(auctionRoom.getSubscribeChannel());
+        messageSender.createChannel(auctionRoom.getClientReplyChannel());
+        requestAuction(auctionRoom.getId());
     }
 
     public void disconnectFromAuctionRoom(){
         this.connectedAuctionRoom = null;
+    }
+
+    public void placeBid(String clientReplyChannel, Auction auction){
+        try {
+            String serializedAuction = auctionSerializationHandler.serialize(auction);
+            messageSender.sendMessage(clientReplyChannel, serializedAuction);
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -79,7 +99,9 @@ public class AuctionClientGateway implements ISubscriberGateway {
     public void auctionReceived(String message) {
         try {
             Auction auction = auctionSerializationHandler.deserialize(message);
-            auctionClient.newAuctionReceived(auction);
+            if(auction != null) {
+                auctionClient.newAuctionReceived(auction);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -59,11 +59,14 @@ public class Auction {
         return nameHighestBidder;
     }
 
-    public void newBid(double newBid, String nameBidder){
+    public boolean newBid(double newBid, String nameBidder){
         if(highestBid < newBid){
             highestBid = newBid;
             nameHighestBidder = nameBidder;
+            auctionStartTime = currentAuctionTime;
+            return true;
         }
+        return false;
     }
 
     public void setAuctionStartTime(int auctionStartTime){

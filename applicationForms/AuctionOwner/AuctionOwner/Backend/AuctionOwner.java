@@ -20,6 +20,7 @@ public class AuctionOwner {
 
     private AuctionOwnerGateway auctionOwnerGateway;
     private int currentTime;
+    private int standardAuctionDuration = 30;
 
     public AuctionOwner(AuctionOwnerController auctionOwnerController){
         this.auctionOwnerController = auctionOwnerController;
@@ -49,7 +50,7 @@ public class AuctionOwner {
             return;
         }
         Auction auction = new Auction(name);
-        auction.setAuctionDuration(50);
+        auction.setAuctionDuration(standardAuctionDuration);
         auction.setAuctionRoomId(selectedAuctionRoom.getId());
         auction.newBid(startPrice, "StartPrice");
         auctionOwnerGateway.AddToAuction(auction);
@@ -92,7 +93,15 @@ public class AuctionOwner {
 
     public void addAuctionTo(Auction auction){
         AuctionRoom auctionRoom = findAuctionRoom(auction.getAuctionRoomId());
-        auctionRoom.newAuction(auction);
+        auctionRoom.overrideCurrentAuction(auction);
+        if(auctionRoom == selectedAuctionRoom) {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    auctionOwnerController.showAuctionData(selectedAuctionRoom.getCurrentAuction());
+                }
+            });
+        }
     }
 
     private AuctionRoom findAuctionRoom(String auctionRoomId){

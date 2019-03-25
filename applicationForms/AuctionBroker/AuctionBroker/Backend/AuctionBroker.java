@@ -25,6 +25,7 @@ public class AuctionBroker {
     private BrokerToClientGateway brokerToClientGateway;
     private BrokerToTimeServerGateway brokerToTimeServerGateway;
 
+    private AuctionRoom selectedAuctionRoom;
     private int currentTime;
 
     public AuctionBroker(AuctionBrokerController auctionBrokerController){
@@ -36,23 +37,6 @@ public class AuctionBroker {
         brokerToOwnerGateway = new BrokerToOwnerGateway(this);
         brokerToClientGateway = new BrokerToClientGateway(this);
         brokerToTimeServerGateway = new BrokerToTimeServerGateway(this);
-
-    }
-
-    private void TESTING(){
-        AuctionRoom auctionRoom = createAuctionRoom("TestingRoom");
-        Auction auction = new Auction("auctionTest");
-        auction.newBid(0.2d, "test bidder");
-        auction.setAuctionRoomId(auctionRoom.getId());
-        auction.setAuctionStartTime(0);
-        auction.setAuctionDuration(30);
-        Auction auction1 = new Auction("auctionTest1");
-        auction1.newBid(0.5d, "test bidder 2");
-        auction1.setAuctionRoomId(auctionRoom.getId());
-        auctionRoom.newAuction(auction);
-        auctionRoom.newAuction(auction1);
-        auction1.setAuctionStartTime(30);
-        auction1.setAuctionDuration(50);
     }
 
     public void timePassed(int newTime){
@@ -83,11 +67,11 @@ public class AuctionBroker {
     }
 
     public void SelectAuctionRoom(AuctionRoom auctionRoom){
-        Auction currentAuction = auctionRoom.getCurrentAuction();
+        this.selectedAuctionRoom = auctionRoom;
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                auctionBrokerController.showAuctionData(currentAuction);
+                auctionBrokerController.showAuctionData(selectedAuctionRoom.getCurrentAuction());
             }
         });
     }
@@ -110,6 +94,10 @@ public class AuctionBroker {
         return auctionRoom;
     }
 
+    public Auction getAuctionFor(String auctionRoomId){
+        return findAuctionRoom(auctionRoomId).getCurrentAuction();
+    }
+
     public List<AuctionRoom> getAuctionRooms(){
         return auctionRooms;
     }
@@ -122,7 +110,31 @@ public class AuctionBroker {
         AuctionRoom auctionRoom = findAuctionRoom(auction.getAuctionRoomId());
         boolean firstAuction = auctionRoom.newAuction(auction);
         if(firstAuction){
+            auctionUpdated(auctionRoom);
             auction.setAuctionStartTime(this.currentTime);
+            brokerToClientGateway.publishNewAuction(auctionRoom);
+            brokerToOwnerGateway.publishNewAuction(auctionRoom);
+        }
+    }
+
+    private void auctionUpdated(AuctionRoom auctionRoom){
+        if(selectedAuctionRoom.getId().equals(auctionRoom.getId())){
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    auctionBrokerController.showAuctionData(selectedAuctionRoom.getCurrentAuction());
+                }
+            });
+
+        }
+    }
+
+    public void bidReceived(Auction auction){
+        AuctionRoom auctionRoom = findAuctionRoom(auction.getAuctionRoomId());
+        if(auctionRoom.getCurrentAuction().getName().equals(auction.getName())){
+            auctionRoom.getCurrentAuction().newBid(auction.getHighestBid(), auction.getNameHighestBidder());
+            auctionUpdated(auctionRoom);
+            brokerToClientGateway.publishNewAuction(auctionRoom);
             brokerToOwnerGateway.publishNewAuction(auctionRoom);
         }
     }

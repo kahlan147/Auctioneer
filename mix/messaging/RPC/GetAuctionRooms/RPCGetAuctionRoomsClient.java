@@ -13,28 +13,25 @@ import java.util.concurrent.TimeoutException;
 public class RPCGetAuctionRoomsClient {
 
     private Connection connection;
-    private Channel channel;
-    private String requestQueueName;
 
     private AuctionClientGateway auctionClientGateway;
 
-    public RPCGetAuctionRoomsClient(String queue, AuctionClientGateway auctionClientGateway){
+    public RPCGetAuctionRoomsClient(AuctionClientGateway auctionClientGateway){
         this.auctionClientGateway = auctionClientGateway;
-        this.requestQueueName = queue;
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
 
         try {
             connection = factory.newConnection();
-            channel = connection.createChannel();
         }
         catch(IOException | TimeoutException e){
             e.printStackTrace();
         }
     }
 
-    public String call(){
+    public void requestAuctionRooms(String requestQueueName){
         try {
+            Channel channel = connection.createChannel();
             final String corrId = UUID.randomUUID().toString();
 
             String replyQueueName = channel.queueDeclare().getQueue();
@@ -53,14 +50,39 @@ public class RPCGetAuctionRoomsClient {
             };
             channel.basicConsume(replyQueueName, true, deliverCallback, consumerTag -> {
             });
-            return replyQueueName;
-
         }
         catch(IOException e)
         {
             e.printStackTrace();
         }
-        return "";
+    }
+
+    public void requestAuction(String requestQueueName, String auctionRoomId){
+        try {
+            Channel channel = connection.createChannel();
+            final String corrId = UUID.randomUUID().toString();
+
+            String replyQueueName = channel.queueDeclare().getQueue();
+            AMQP.BasicProperties props = new AMQP.BasicProperties
+                    .Builder()
+                    .correlationId(corrId)
+                    .replyTo(replyQueueName)
+                    .build();
+
+            channel.basicPublish("", requestQueueName, props, auctionRoomId.getBytes("UTF-8"));
+
+            DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+                String serializedAuction = new String(delivery.getBody(), "UTF-8");
+                System.out.println(" [x] Received '" + serializedAuction + "'");
+                auctionClientGateway.auctionReceived(serializedAuction);
+            };
+            channel.basicConsume(replyQueueName, true, deliverCallback, consumerTag -> {
+            });
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     public void close() throws IOException {

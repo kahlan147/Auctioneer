@@ -72,6 +72,10 @@ public class AuctionRoom{
         return false;
     }
 
+    public void overrideCurrentAuction(Auction auction){
+        this.currentAuction = auction;
+    }
+
     public boolean timePassed(int newTime){
         if(currentAuction != null && currentAuction.timePassed(newTime)){
             currentAuction = null;

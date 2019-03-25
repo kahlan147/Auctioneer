@@ -45,12 +45,5 @@ public class MessageReceiver {
         catch(IOException | TimeoutException e){
             e.printStackTrace();
         }
-
-    }
-
-    public String giveThings(){
-            String channelName = channel.getConnection().getClientProvidedName();
-            System.out.println(channelName);
-            return channelName;
     }
 }

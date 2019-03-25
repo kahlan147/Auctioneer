@@ -78,12 +78,20 @@ public class AuctionClientController extends Application{
     }
 
     public void OnClick_Connect(){
+        String username = userName.getText();
+        if(username.equals("")){
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please enter a name");
+            alert.show();
+            return;
+        }
+
         AuctionRoom auctionRoom = rooms.getSelectionModel().getSelectedItem();
         if(auctionRoom == null){
             Alert alert = new Alert(Alert.AlertType.ERROR, "Please select an auction room first.");
             alert.show();
             return;
         }
+        auctionClient.setUserName(username);
         auctionClient.connectTo(auctionRoom);
     }
 
@@ -92,7 +100,16 @@ public class AuctionClientController extends Application{
     }
 
     public void OnClick_Bid(){
-
+        double bid = 0;
+        try{
+            bid = Double.parseDouble(myBid.getText());
+        }
+        catch(NumberFormatException e){
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Start price must be a number");
+            alert.show();
+            return;
+        }
+        auctionClient.bid(bid);
     }
 
     public void OnClick_Disconnect(){
