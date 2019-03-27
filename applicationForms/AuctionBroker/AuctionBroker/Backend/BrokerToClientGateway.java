@@ -4,7 +4,6 @@ import Classes.Auction;
 import Classes.AuctionRoom;
 import Classes.ChannelNames;
 import Serializer.AuctionRoomListSerializationHandler;
-import Serializer.AuctionRoomSerializationHandler;
 import Serializer.AuctionSerializationHandler;
 import messaging.IMessageReceiver;
 import messaging.MessageReceiver;
@@ -12,9 +11,7 @@ import messaging.PublishSubscribe.MessagePublisher;
 import messaging.RPC.GetAuctionRooms.RPCGetAuctionRoomsServer;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Niels Verheijen on 18/03/2019.

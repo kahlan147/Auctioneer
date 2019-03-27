@@ -4,18 +4,13 @@ import Classes.Auction;
 import Classes.AuctionRoom;
 import Classes.ChannelNames;
 import Classes.ISubscriberGateway;
-import Serializer.AuctionRoomListSerializationHandler;
 import Serializer.AuctionRoomSerializationHandler;
 import Serializer.AuctionSerializationHandler;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.rabbitmq.client.impl.ChannelN;
-import javafx.application.Platform;
 import messaging.IMessageReceiver;
 import messaging.MessageReceiver;
 import messaging.MessageSender;
 import messaging.PublishSubscribe.MessageSubscriber;
 import messaging.RPC.CreateAuctionRoom.RPCCreateAuctionRoomClient;
-import messaging.RPC.CreateAuctionRoom.RPCCreateAuctionRoomServer;
 
 import java.io.IOException;
 import java.util.ArrayList;

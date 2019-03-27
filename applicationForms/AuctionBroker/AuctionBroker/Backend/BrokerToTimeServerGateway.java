@@ -1,7 +1,5 @@
 package AuctionBroker.Backend;
 
-import AuctionClient.Backend.AuctionClient;
-import Classes.Auction;
 import Classes.ChannelNames;
 import Classes.ISubscriberGateway;
 import messaging.PublishSubscribe.MessageSubscriber;

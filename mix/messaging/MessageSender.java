@@ -1,15 +1,11 @@
 package messaging;
 
-import Classes.AuctionRoom;
-import Classes.ChannelNames;
-import Serializer.AuctionRoomSerializationHandler;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.Channel;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeoutException;
 
@@ -20,6 +16,7 @@ public class MessageSender {
 
     private Connection connection;
     private Map<String, Channel> channelMap;
+    private Channel channel;
 
     public MessageSender(){
         channelMap = new HashMap<>();
@@ -31,27 +28,28 @@ public class MessageSender {
         factory.setHost("localhost");
         try {
             connection = factory.newConnection();
+            channel = connection.createChannel();
         }
         catch (TimeoutException | IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void createChannel(String channelName){
+    public void createChannel(String queueName){
         try {
-            Channel channel = connection.createChannel();
-            channel.queueDeclare(channelName, false, false, false, null);
-            channelMap.put(channelName,channel);
+            // channel = connection.createChannel();
+            channel.queueDeclare(queueName, false, false, false, null);
+            channelMap.put(queueName,channel);
         }
         catch(IOException e){
             e.printStackTrace();
         }
     }
 
-    public void sendMessage(String channelName, String message){
+    public void sendMessage(String queueName, String message){
         try {
-            Channel channel = channelMap.get(channelName);
-            channel.basicPublish("", channelName, null, message.getBytes());
+            //Channel channel = channelMap.get(queueName);
+            channel.basicPublish("", queueName, null, message.getBytes());
             System.out.println(" [x] Sent '" + message + "'");
         }
         catch(IOException e){

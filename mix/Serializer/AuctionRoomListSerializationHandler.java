@@ -3,11 +3,8 @@ package Serializer;
 import Classes.AuctionRoom;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

@@ -12,7 +12,7 @@ import java.util.concurrent.TimeoutException;
  */
 public class RPCGetAuctionRoomsClient {
 
-    private Connection connection;
+    private Channel channel;
 
     private AuctionClientGateway auctionClientGateway;
 
@@ -22,7 +22,8 @@ public class RPCGetAuctionRoomsClient {
         factory.setHost("localhost");
 
         try {
-            connection = factory.newConnection();
+            Connection connection = factory.newConnection();
+            channel = connection.createChannel();
         }
         catch(IOException | TimeoutException e){
             e.printStackTrace();
@@ -31,7 +32,6 @@ public class RPCGetAuctionRoomsClient {
 
     public void requestAuctionRooms(String requestQueueName){
         try {
-            Channel channel = connection.createChannel();
             final String corrId = UUID.randomUUID().toString();
 
             String replyQueueName = channel.queueDeclare().getQueue();
@@ -59,7 +59,6 @@ public class RPCGetAuctionRoomsClient {
 
     public void requestAuction(String requestQueueName, String auctionRoomId){
         try {
-            Channel channel = connection.createChannel();
             final String corrId = UUID.randomUUID().toString();
 
             String replyQueueName = channel.queueDeclare().getQueue();
@@ -83,10 +82,6 @@ public class RPCGetAuctionRoomsClient {
         {
             e.printStackTrace();
         }
-    }
-
-    public void close() throws IOException {
-        connection.close();
     }
 
 }

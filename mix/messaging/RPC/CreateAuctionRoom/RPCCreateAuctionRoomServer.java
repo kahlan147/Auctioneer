@@ -1,8 +1,6 @@
 package messaging.RPC.CreateAuctionRoom;
 
-import AuctionBroker.Backend.AuctionBroker;
 import AuctionBroker.Backend.BrokerToOwnerGateway;
-import Classes.Auction;
 import Classes.AuctionRoom;
 import Serializer.AuctionRoomSerializationHandler;
 import com.rabbitmq.client.*;
@@ -34,8 +32,6 @@ public class RPCCreateAuctionRoomServer {
             Channel channel = connection.createChannel();
             channel.queueDeclare(RPC_QUEUE_NAME, false, false, false, null);
             channel.queuePurge(RPC_QUEUE_NAME);
-
-            //channel.basicQos(1);
 
             System.out.println(" [x] Awaiting RPC requests for creating auction room");
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {

@@ -1,16 +1,10 @@
 package messaging.PublishSubscribe;
 
-import Classes.Auction;
-import Serializer.AuctionSerializationHandler;
-import com.fasterxml.jackson.core.JsonpCharacterEscapes;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.TimeoutException;
 
 /**
@@ -18,12 +12,9 @@ import java.util.concurrent.TimeoutException;
  */
 public class MessagePublisher {
 
-    private Map<String, Channel> channelMap;
-
-    private Connection connection;
+    private Channel channel;
 
     public MessagePublisher(){
-        channelMap = new HashMap<>();
         setup();
     }
 
@@ -31,7 +22,8 @@ public class MessagePublisher {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
         try {
-            connection = factory.newConnection();
+            Connection connection = factory.newConnection();
+            channel = connection.createChannel();
         }
         catch(IOException | TimeoutException e){
             e.printStackTrace();
@@ -40,9 +32,7 @@ public class MessagePublisher {
 
     public void createChannel(String exchangeName){
         try {
-            Channel channel = connection.createChannel();
             channel.exchangeDeclare(exchangeName, "fanout");
-            channelMap.put(exchangeName, channel);
         }
         catch(IOException e){
             e.printStackTrace();
@@ -51,7 +41,6 @@ public class MessagePublisher {
 
     public void SendMessage(String exchangeName, String message){
         try {
-            Channel channel = channelMap.get(exchangeName);
             channel.basicPublish(exchangeName, "", null, message.getBytes("UTF-8"));
         }
         catch(IOException e){

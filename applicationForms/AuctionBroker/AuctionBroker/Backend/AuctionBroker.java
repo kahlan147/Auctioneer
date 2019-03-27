@@ -8,8 +8,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.UUID;
 
 /**
@@ -39,10 +37,15 @@ public class AuctionBroker {
         brokerToTimeServerGateway = new BrokerToTimeServerGateway(this);
     }
 
+    /**
+     * Handles everything that concerning updating the current time
+     * @param newTime the new time.
+     */
     public void timePassed(int newTime){
         currentTime = newTime;
         if(auctionRooms.size() > 0){
             for(AuctionRoom auctionRoom : auctionRooms){
+                //foreach room, check if an auction has finished.
                 if(auctionRoom.timePassed(newTime)){
                     if(auctionRoom.getCurrentAuction() != null) {
                         auctionRoom.getCurrentAuction().setAuctionStartTime(this.currentTime);
@@ -75,6 +78,7 @@ public class AuctionBroker {
             }
         });
     }
+
 
     public AuctionRoom createAuctionRoom(String name){
         AuctionRoom auctionRoom = new AuctionRoom(name);

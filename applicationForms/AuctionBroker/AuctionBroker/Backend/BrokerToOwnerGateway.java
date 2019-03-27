@@ -7,7 +7,6 @@ import Serializer.AuctionSerializationHandler;
 import messaging.IMessageReceiver;
 import messaging.MessageReceiver;
 import messaging.MessageSender;
-import messaging.PublishSubscribe.MessageSubscriber;
 import messaging.RPC.CreateAuctionRoom.RPCCreateAuctionRoomServer;
 
 import java.io.IOException;

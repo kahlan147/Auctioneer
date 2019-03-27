@@ -86,6 +86,7 @@ public class AuctionOwnerController extends Application {
             selectedAuctionItemName.setText("");
             selectedAuctionHighestBid.setText("");
             selectedAuctionHighestBidder.setText("");
+            timeRemaining.setProgress(0);
         }
         else{
             selectedAuctionItemName.setText(auction.getName());

@@ -1,13 +1,11 @@
 package AuctionClient.Backend;
 
-import AuctionClient.Backend.AuctionClient;
 import Classes.Auction;
 import Classes.AuctionRoom;
 import Classes.ChannelNames;
 import Classes.ISubscriberGateway;
 import Serializer.AuctionRoomListSerializationHandler;
 import Serializer.AuctionSerializationHandler;
-import javafx.application.Platform;
 import messaging.MessageSender;
 import messaging.PublishSubscribe.MessageSubscriber;
 import messaging.RPC.GetAuctionRooms.RPCGetAuctionRoomsClient;

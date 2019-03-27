@@ -1,11 +1,7 @@
 package messaging.PublishSubscribe;
 
-import AuctionClient.Backend.AuctionClient;
-import AuctionClient.Backend.AuctionClientGateway;
-import Classes.Auction;
 import Classes.ChannelNames;
 import Classes.ISubscriberGateway;
-import Serializer.AuctionSerializationHandler;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -23,12 +19,10 @@ public class MessageSubscriber {
 
     private ISubscriberGateway subscriberGateway;
 
-    private Connection connection;
-    private List<Channel> channels;
+    private Channel channel;
 
     public MessageSubscriber(ISubscriberGateway subscriberGateway){
         this.subscriberGateway = subscriberGateway;
-        channels = new ArrayList<>();
         setup();
     }
 
@@ -36,8 +30,8 @@ public class MessageSubscriber {
         try {
             ConnectionFactory factory = new ConnectionFactory();
             factory.setHost("localhost");
-            connection = factory.newConnection();
-
+            Connection connection = factory.newConnection();
+            channel = connection.createChannel();
         }
         catch(IOException | TimeoutException e){
             e.printStackTrace();
@@ -46,12 +40,12 @@ public class MessageSubscriber {
 
     public void createNewChannel(String channelName){
         try {
-            Channel channel = connection.createChannel();
+            //Channel channel = connection.createChannel();
 
             channel.exchangeDeclare(channelName, "fanout");
             String queueName = channel.queueDeclare().getQueue();
             channel.queueBind(queueName, channelName, "");
-            channels.add(channel);
+            //channels.add(channel);
 
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
                 String message = new String(delivery.getBody(), "UTF-8");

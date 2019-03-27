@@ -1,6 +1,5 @@
 package Serializer.JacksonDeserializers;
 
-import Classes.Auction;
 import Classes.AuctionRoom;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;

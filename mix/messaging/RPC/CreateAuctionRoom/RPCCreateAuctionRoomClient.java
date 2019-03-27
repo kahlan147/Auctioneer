@@ -2,13 +2,9 @@ package messaging.RPC.CreateAuctionRoom;
 
 import AuctionOwner.Backend.AuctionOwnerGateway;
 import com.rabbitmq.client.*;
-import com.sun.jmx.remote.internal.ArrayQueue;
-import messaging.IMessageReceiver;
 
 import java.io.IOException;
 import java.util.UUID;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeoutException;
 
 /**
