@@ -69,7 +69,7 @@ public class AuctionClientGateway implements ISubscriberGateway {
 
     public void connectToAuctionRoom(AuctionRoom auctionRoom){
         messageSubscriber.createNewChannel(auctionRoom.getSubscribeChannel());
-        messageSender.createChannel(auctionRoom.getClientReplyChannel());
+        messageSender.createQueue(auctionRoom.getClientReplyChannel());
         requestAuction(auctionRoom.getId());
     }
 

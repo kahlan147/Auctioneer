@@ -42,7 +42,7 @@ public class AuctionOwnerGateway implements ISubscriberGateway, IMessageReceiver
         messageSubscriber.createNewChannel(ChannelNames.TIMEPASSEDCHANNEL);
         rpcCreateAuctionRoomClient = new RPCCreateAuctionRoomClient(ChannelNames.RPC_CREATEAUCTIONROOM, this);
         messageSender = new MessageSender();
-        messageSender.createChannel(ChannelNames.OWNERTOBROKERNEWAUCTION);
+        messageSender.createQueue(ChannelNames.OWNERTOBROKERNEWAUCTION);
         messageReceivers = new ArrayList<MessageReceiver>();
     }
 

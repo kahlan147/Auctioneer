@@ -44,7 +44,7 @@ public class BrokerToOwnerGateway implements IMessageReceiver {
 
     public AuctionRoom createAuctionRoom(String name){
         AuctionRoom createdRoom = auctionBroker.createAuctionRoom(name);
-        messageSender.createChannel(createdRoom.getOwnerReplyChannel());
+        messageSender.createQueue(createdRoom.getOwnerReplyChannel());
         return createdRoom;
     }
 
