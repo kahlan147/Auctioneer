@@ -7,10 +7,13 @@
       <sourceFolder url="file://$MODULE_DIR$/applicationForms/AuctionBroker" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/applicationForms/AuctionClient" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/applicationForms/AuctionOwner" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/applicationForms/TimeServer" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/out" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="amqp-client-5.5.1" level="project" />
+    <orderEntry type="library" name="com.owlike:genson:1.4" level="project" />
+    <orderEntry type="library" name="com.fasterxml.jackson.core:jackson-core:2.9.8" level="project" />
   </component>
 </module>
