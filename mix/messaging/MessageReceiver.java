@@ -14,7 +14,6 @@ import java.util.concurrent.TimeoutException;
 public class MessageReceiver {
 
     private IMessageReceiver messageReceiver;
-    private Channel channel;
 
     private static String QUEUE_NAME;
 
@@ -29,13 +28,13 @@ public class MessageReceiver {
             ConnectionFactory factory = new ConnectionFactory();
             factory.setHost("localhost");
             Connection connection = factory.newConnection();
-            channel = connection.createChannel();
+            Channel channel = connection.createChannel();
 
             channel.queueDeclare(QUEUE_NAME, false, false, false, null);
             System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
 
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
-                String message = new String(delivery.getBody(), "UTF-8");
+                String message = new String(delivery.getBody());
                 System.out.println(" [x] Received '" + message + "'");
                 messageReceiver.messageReceived(message);
             };

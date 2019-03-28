@@ -5,5 +5,9 @@ package messaging;
  */
 public interface IMessageReceiver {
 
+    /**
+     * Called whenever a message has been received in a messageReceiver class.
+     * @param message
+     */
     void messageReceived(String message);
 }

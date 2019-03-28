@@ -32,17 +32,28 @@ public class BrokerToOwnerGateway implements IMessageReceiver {
         setupSerializers();
     }
 
+    /**
+     * Sets up the connections
+     */
     private void setupConnections(){
         rpcCreateAuctionRoomServer = new RPCCreateAuctionRoomServer(ChannelNames.RPC_CREATEAUCTIONROOM, this);
         messageReceiver = new MessageReceiver(ChannelNames.OWNERTOBROKERNEWAUCTION, this);
         messageSender = new MessageSender();
     }
 
+    /**
+     * Sets up the serializers
+     */
     private void setupSerializers(){
         auctionSerializationHandler = new AuctionSerializationHandler();
     }
 
-    public AuctionRoom createAuctionRoom(String name){
+    /**
+     * Asks the Broker to create an auction room, creates a queue to address the room with, then returns the room.
+     * @param name
+     * @return
+     */
+    public AuctionRoom RPC_createAuctionRoom(String name){
         AuctionRoom createdRoom = auctionBroker.createAuctionRoom(name);
         messageSender.createQueue(createdRoom.getOwnerReplyChannel());
         return createdRoom;
@@ -59,6 +70,12 @@ public class BrokerToOwnerGateway implements IMessageReceiver {
         }
     }
 
+    /**
+     * Informs the owner of an auctionroom of a change in their auction;
+     * 1. A new auction has started
+     * 2. A new bid was placed.
+     * @param auctionRoom
+     */
     public void publishNewAuction(AuctionRoom auctionRoom){
         try {
             String serializedAuction = auctionSerializationHandler.serialize(auctionRoom.getCurrentAuction());

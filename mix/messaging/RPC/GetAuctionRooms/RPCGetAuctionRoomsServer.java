@@ -97,10 +97,10 @@ public class RPCGetAuctionRoomsServer {
     }
 
     private String getAuction(String auctionRoomId){
-        return brokerToClientGateway.requestAuction(auctionRoomId);
+        return brokerToClientGateway.RPC_requestAuction(auctionRoomId);
     }
 
     private String getAuctionRooms() {
-        return brokerToClientGateway.requestAuctionRooms();
+        return brokerToClientGateway.RPC_requestAuctionRooms();
     }
 }

@@ -32,11 +32,17 @@ public class BrokerToClientGateway implements IMessageReceiver {
         setupConnections();
     }
 
+    /**
+     * Sets up the serializers.
+     */
     private void setupSerializers(){
         this.auctionRoomListSerializationHandler = new AuctionRoomListSerializationHandler();
         this.auctionSerializationHandler = new AuctionSerializationHandler();
     }
 
+    /**
+     * Sets up the various connections
+     */
     private void setupConnections(){
         rpcGetAuctionRoomsServer = new RPCGetAuctionRoomsServer(this);
         rpcGetAuctionRoomsServer.setupRequestAuctionRooms(ChannelNames.RPC_REQUESTAUCTIONROOMS);
@@ -45,11 +51,21 @@ public class BrokerToClientGateway implements IMessageReceiver {
         messagePublisher.createChannel(ChannelNames.TIMEPASSEDCHANNEL);
     }
 
+    /**
+     * Called when a new auctionroom has been created.
+     * Create a publisher for a given auctionroom for sending out auctions.
+     * @param auctionRoom
+     */
     public void addPublisherToAuctionRoom(AuctionRoom auctionRoom){
         messagePublisher.createChannel(auctionRoom.getSubscribeChannel());
         messageReceiver = new MessageReceiver(auctionRoom.getClientReplyChannel(), this);
     }
 
+    /**
+     * Publish a new auction for the given room.
+     * Sends an auction to all subscribers of the given room.
+     * @param auctionRoom
+     */
     public void publishNewAuction(AuctionRoom auctionRoom){
         try{
             String serializedAuction = auctionSerializationHandler.serialize(auctionRoom.getCurrentAuction());
@@ -60,7 +76,12 @@ public class BrokerToClientGateway implements IMessageReceiver {
         }
     }
 
-    public String requestAuction(String auctionRoomId){
+    /**
+     * returns the current auction being held at the room corresponding to the given ID.
+     * @param auctionRoomId
+     * @return
+     */
+    public String RPC_requestAuction(String auctionRoomId){
         try{
             Auction auction = auctionBroker.getAuctionFor(auctionRoomId);
             return auctionSerializationHandler.serialize(auction);
@@ -71,7 +92,11 @@ public class BrokerToClientGateway implements IMessageReceiver {
         return "";
     }
 
-    public String requestAuctionRooms(){
+    /**
+     * returns all available auction rooms.
+     * @return
+     */
+    public String RPC_requestAuctionRooms(){
         try{
             List<AuctionRoom> auctionRooms = auctionBroker.getAuctionRooms();
             return auctionRoomListSerializationHandler.serialize(auctionRooms);
@@ -80,10 +105,6 @@ public class BrokerToClientGateway implements IMessageReceiver {
             e.printStackTrace();
         }
         return "";
-    }
-
-    public void timePassed(int seconds){
-        messagePublisher.SendMessage(ChannelNames.TIMEPASSEDCHANNEL, Integer.toString(seconds));
     }
 
     @Override

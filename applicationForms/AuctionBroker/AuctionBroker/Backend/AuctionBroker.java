@@ -69,6 +69,10 @@ public class AuctionBroker {
         });
     }
 
+    /**
+     * Selects the given auctionroom and shows it's data on the GUI.
+     * @param auctionRoom
+     */
     public void SelectAuctionRoom(AuctionRoom auctionRoom){
         this.selectedAuctionRoom = auctionRoom;
         Platform.runLater(new Runnable() {
@@ -79,7 +83,13 @@ public class AuctionBroker {
         });
     }
 
-
+    /**
+     * Creates an auctionroom and fits it with unique IDs.
+     * Created in the broker so all IDs are always unique, unlike the small chance of 2
+     * different applications creating the exact same ID.
+     * @param name
+     * @return
+     */
     public AuctionRoom createAuctionRoom(String name){
         AuctionRoom auctionRoom = new AuctionRoom(name);
         String id = UUID.randomUUID().toString();
@@ -98,18 +108,36 @@ public class AuctionBroker {
         return auctionRoom;
     }
 
+    /**
+     * returns the current auction belonging to the room of the corresponding given auctionroom id.
+     * @param auctionRoomId
+     * @return
+     */
     public Auction getAuctionFor(String auctionRoomId){
         return findAuctionRoom(auctionRoomId).getCurrentAuction();
     }
 
+    /**
+     * returns all auction rooms currently on-line.
+     * @return
+     */
     public List<AuctionRoom> getAuctionRooms(){
         return auctionRooms;
     }
 
+    /**
+     * finds the auction room based on the given ID.
+     * @param auctionRoomId
+     * @return
+     */
     private AuctionRoom findAuctionRoom(String auctionRoomId){
         return auctionRooms.filtered(o -> o.getId().equals(auctionRoomId)).get(0);
     }
 
+    /**
+     * Adds an auction to the auctionroom it has the ID for.
+     * @param auction
+     */
     public void addAuction(Auction auction){
         AuctionRoom auctionRoom = findAuctionRoom(auction.getAuctionRoomId());
         boolean firstAuction = auctionRoom.newAuction(auction);
@@ -121,6 +149,12 @@ public class AuctionBroker {
         }
     }
 
+    /**
+     * Called when an auction was updated;
+     * 1. An auction has ended.
+     * 2. A new auction was placed and no auction was displayed.
+     * @param auctionRoom
+     */
     private void auctionUpdated(AuctionRoom auctionRoom){
         if(selectedAuctionRoom.getId().equals(auctionRoom.getId())){
             Platform.runLater(new Runnable() {
@@ -133,6 +167,11 @@ public class AuctionBroker {
         }
     }
 
+    /**
+     * Called when a client places a bid on an auction.
+     * adjusts the current corresponding auction and informs anyone involved.
+     * @param auction
+     */
     public void bidReceived(Auction auction){
         AuctionRoom auctionRoom = findAuctionRoom(auction.getAuctionRoomId());
         if(auctionRoom.getCurrentAuction().getName().equals(auction.getName())){
