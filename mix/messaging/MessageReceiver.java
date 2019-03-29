@@ -1,5 +1,6 @@
 package messaging;
 
+import Classes.CallBack;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -16,6 +17,7 @@ public class MessageReceiver {
     private IMessageReceiver messageReceiver;
 
     private static String QUEUE_NAME;
+
 
     public MessageReceiver(String queueName, IMessageReceiver messageReceiver){
         QUEUE_NAME = queueName;

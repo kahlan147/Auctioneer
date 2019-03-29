@@ -2,13 +2,14 @@ package AuctionBroker.Backend;
 
 import Classes.Auction;
 import Classes.AuctionRoom;
+import Classes.CallBack;
 import Classes.ChannelNames;
 import Serializer.AuctionRoomListSerializationHandler;
 import Serializer.AuctionSerializationHandler;
 import messaging.IMessageReceiver;
 import messaging.MessageReceiver;
 import messaging.PublishSubscribe.MessagePublisher;
-import messaging.RPC.GetAuctionRooms.RPCGetAuctionRoomsServer;
+import messaging.RPC.GetAuctionRooms.RPCServer;
 
 import java.io.IOException;
 import java.util.List;
@@ -22,7 +23,7 @@ public class BrokerToClientGateway implements IMessageReceiver {
 
     private AuctionRoomListSerializationHandler auctionRoomListSerializationHandler;
     private AuctionSerializationHandler auctionSerializationHandler;
-    private RPCGetAuctionRoomsServer rpcGetAuctionRoomsServer;
+    private RPCServer rpcServer;
     private MessagePublisher messagePublisher;
     private MessageReceiver messageReceiver;
 
@@ -44,9 +45,14 @@ public class BrokerToClientGateway implements IMessageReceiver {
      * Sets up the various connections
      */
     private void setupConnections(){
-        rpcGetAuctionRoomsServer = new RPCGetAuctionRoomsServer(this);
-        rpcGetAuctionRoomsServer.setupRequestAuctionRooms(ChannelNames.RPC_REQUESTAUCTIONROOMS);
-        rpcGetAuctionRoomsServer.setupRequestAuction(ChannelNames.RPC_REQUESTAUCTION);
+        rpcServer = new RPCServer();
+
+        CallBack callBackRequestAuctionRooms = message -> RPC_requestAuctionRooms();
+        rpcServer.setup(ChannelNames.RPC_REQUESTAUCTIONROOMS, callBackRequestAuctionRooms);
+
+        CallBack callBackRequestAuction = message -> RPC_requestAuction(message);
+        rpcServer.setup(ChannelNames.RPC_REQUESTAUCTION, callBackRequestAuction);
+
         messagePublisher = new MessagePublisher();
         messagePublisher.createChannel(ChannelNames.TIMEPASSEDCHANNEL);
     }
@@ -81,7 +87,7 @@ public class BrokerToClientGateway implements IMessageReceiver {
      * @param auctionRoomId
      * @return
      */
-    public String RPC_requestAuction(String auctionRoomId){
+    private String RPC_requestAuction(String auctionRoomId){
         try{
             Auction auction = auctionBroker.getAuctionFor(auctionRoomId);
             return auctionSerializationHandler.serialize(auction);
@@ -96,7 +102,7 @@ public class BrokerToClientGateway implements IMessageReceiver {
      * returns all available auction rooms.
      * @return
      */
-    public String RPC_requestAuctionRooms(){
+    private String RPC_requestAuctionRooms(){
         try{
             List<AuctionRoom> auctionRooms = auctionBroker.getAuctionRooms();
             return auctionRoomListSerializationHandler.serialize(auctionRooms);
