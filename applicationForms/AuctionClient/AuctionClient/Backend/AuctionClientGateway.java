@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by Niels Verheijen on 18/03/2019.
  */
-public class AuctionClientGateway implements ISubscriberGateway {
+public class AuctionClientGateway{
 
     private AuctionClient auctionClient;
 
@@ -36,8 +36,15 @@ public class AuctionClientGateway implements ISubscriberGateway {
 
     private void setupConnections(){
         rpcClient = new RPCClient();
-        messageSubscriber = new MessageSubscriber(this);
-        messageSubscriber.createNewChannel(ChannelNames.TIMEPASSEDCHANNEL);
+        messageSubscriber = new MessageSubscriber();
+        CallBack callBackTimeReceived = new CallBack() {
+            @Override
+            public String returnMessage(String message) {
+                timeReceived(message);
+                return "";
+            }
+        };
+        messageSubscriber.createNewChannel(ChannelNames.TIMEPASSEDCHANNEL, callBackTimeReceived);
         messageSender = new MessageSender();
     }
 
@@ -79,7 +86,14 @@ public class AuctionClientGateway implements ISubscriberGateway {
     }
 
     public void connectToAuctionRoom(AuctionRoom auctionRoom){
-        messageSubscriber.createNewChannel(auctionRoom.getSubscribeChannel());
+        CallBack callBackAuctionReceived = new CallBack() {
+            @Override
+            public String returnMessage(String message) {
+                auctionReceived(message);
+                return "";
+            }
+        };
+        messageSubscriber.createNewChannel(auctionRoom.getSubscribeChannel(), callBackAuctionReceived);
         messageSender.createQueue(auctionRoom.getClientReplyChannel());
         requestAuction(auctionRoom.getId());
     }
@@ -98,13 +112,11 @@ public class AuctionClientGateway implements ISubscriberGateway {
         }
     }
 
-    @Override
-    public void timeReceived(String message) {
+    private void timeReceived(String message) {
         int newTime = Integer.parseInt(message);
         auctionClient.timePassed(newTime);
     }
 
-    @Override
     public void auctionReceived(String message) {
         try {
             Auction auction = auctionSerializationHandler.deserialize(message);

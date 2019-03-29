@@ -1,6 +1,5 @@
 package messaging.RPC;
 
-import AuctionClient.Backend.AuctionClientGateway;
 import Classes.CallBack;
 import com.rabbitmq.client.*;
 

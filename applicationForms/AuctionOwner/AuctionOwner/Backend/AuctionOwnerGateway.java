@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by Niels Verheijen on 15/03/2019.
  */
-public class AuctionOwnerGateway implements ISubscriberGateway {
+public class AuctionOwnerGateway {
 
     private AuctionOwner auctionOwner;
     private AuctionSerializationHandler auctionSerializationHandler;
@@ -35,8 +35,15 @@ public class AuctionOwnerGateway implements ISubscriberGateway {
     }
 
     private void setupChannels(){
-        messageSubscriber = new MessageSubscriber(this);
-        messageSubscriber.createNewChannel(ChannelNames.TIMEPASSEDCHANNEL);
+        messageSubscriber = new MessageSubscriber();
+        CallBack callBackTimeReceived = new CallBack() {
+            @Override
+            public String returnMessage(String message) {
+                timeReceived(message);
+                return "";
+            }
+        };
+        messageSubscriber.createNewChannel(ChannelNames.TIMEPASSEDCHANNEL, callBackTimeReceived);
         rpcCreateAuctionRoomClient = new RPCClient();
         messageSender = new MessageSender();
         messageSender.createQueue(ChannelNames.OWNERTOBROKERNEWAUCTION);
@@ -64,7 +71,7 @@ public class AuctionOwnerGateway implements ISubscriberGateway {
         }
     }
 
-    public void auctionRoomCreated(String message) {
+    private void auctionRoomCreated(String message) {
         try {
             AuctionRoom auctionRoom = auctionRoomSerializationHandler.deserialize(message);
             auctionOwner.addNewAuctionRoom(auctionRoom);
@@ -82,15 +89,12 @@ public class AuctionOwnerGateway implements ISubscriberGateway {
         }
     }
 
-
-    @Override
-    public void timeReceived(String message) {
+    private void timeReceived(String message) {
         int newTime = Integer.parseInt(message);
         auctionOwner.timePassed(newTime);
     }
 
-    @Override
-    public void auctionReceived(String message) {
+    private void auctionReceived(String message) {
         try{
             Auction auction = auctionSerializationHandler.deserialize(message);
             auctionOwner.addAuctionTo(auction);

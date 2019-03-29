@@ -156,7 +156,7 @@ public class AuctionBroker {
      * @param auctionRoom
      */
     private void auctionUpdated(AuctionRoom auctionRoom){
-        if(selectedAuctionRoom.getId().equals(auctionRoom.getId())){
+        if(selectedAuctionRoom != null && selectedAuctionRoom.getId().equals(auctionRoom.getId())){
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {

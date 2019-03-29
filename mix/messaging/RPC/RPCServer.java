@@ -20,17 +20,18 @@ import java.util.concurrent.TimeoutException;
  */
 public class RPCServer {
 
-    private Connection connection;
+    private Channel channel;
 
     public RPCServer(){
         setup();
     }
 
     private void setup(){
-        ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
         try{
-            connection = factory.newConnection();
+            ConnectionFactory factory = new ConnectionFactory();
+            factory.setHost("localhost");
+            Connection connection = factory.newConnection();
+            channel = connection.createChannel();
         }
         catch (TimeoutException | IOException e) {
             e.printStackTrace();
@@ -39,10 +40,8 @@ public class RPCServer {
 
     public void setup(String queueName, CallBack callBack){
         try{
-            Channel channel = connection.createChannel();
             channel.queueDeclare(queueName, false, false, false, null);
             channel.queuePurge(queueName);
-
             System.out.println(" [x] Awaiting RPC requests for auctionrooms");
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
                 try {
