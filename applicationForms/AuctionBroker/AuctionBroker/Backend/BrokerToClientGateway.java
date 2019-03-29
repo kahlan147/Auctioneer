@@ -6,7 +6,6 @@ import Classes.CallBack;
 import Classes.ChannelNames;
 import Serializer.AuctionRoomListSerializationHandler;
 import Serializer.AuctionSerializationHandler;
-import messaging.IMessageReceiver;
 import messaging.RequestReply.MessageReceiver;
 import messaging.PublishSubscribe.MessagePublisher;
 import messaging.RPC.RPCServer;
@@ -17,7 +16,7 @@ import java.util.List;
 /**
  * Created by Niels Verheijen on 18/03/2019.
  */
-public class BrokerToClientGateway implements IMessageReceiver {
+public class BrokerToClientGateway {
 
     private AuctionBroker auctionBroker;
 
@@ -55,6 +54,7 @@ public class BrokerToClientGateway implements IMessageReceiver {
 
         messagePublisher = new MessagePublisher();
         messagePublisher.createChannel(ChannelNames.TIMEPASSEDCHANNEL);
+        messageReceiver = new MessageReceiver();
     }
 
     /**
@@ -64,7 +64,14 @@ public class BrokerToClientGateway implements IMessageReceiver {
      */
     public void addPublisherToAuctionRoom(AuctionRoom auctionRoom){
         messagePublisher.createChannel(auctionRoom.getSubscribeChannel());
-        messageReceiver = new MessageReceiver(auctionRoom.getClientReplyChannel(), this);
+        CallBack callBackBidReceived = new CallBack() {
+            @Override
+            public String returnMessage(String message) {
+                bidReceived(message);
+                return "";
+            }
+        };
+        messageReceiver.setup(auctionRoom.getClientReplyChannel(), callBackBidReceived);
     }
 
     /**
@@ -113,8 +120,7 @@ public class BrokerToClientGateway implements IMessageReceiver {
         return "";
     }
 
-    @Override
-    public void messageReceived(String message) {
+    public void bidReceived(String message) {
         try {
             Auction auction = auctionSerializationHandler.deserialize(message);
             auctionBroker.bidReceived(auction);

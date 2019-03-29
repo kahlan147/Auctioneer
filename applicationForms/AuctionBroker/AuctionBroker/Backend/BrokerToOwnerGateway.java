@@ -7,7 +7,6 @@ import Classes.CallBack;
 import Serializer.AuctionRoomSerializationHandler;
 import Serializer.AuctionSerializationHandler;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import messaging.IMessageReceiver;
 import messaging.RequestReply.MessageReceiver;
 import messaging.RequestReply.MessageSender;
 import messaging.RPC.RPCServer;
@@ -17,7 +16,7 @@ import java.io.IOException;
 /**
  * Created by Niels Verheijen on 18/03/2019.
  */
-public class BrokerToOwnerGateway implements IMessageReceiver {
+public class BrokerToOwnerGateway{
 
     private AuctionBroker auctionBroker;
 
@@ -44,7 +43,15 @@ public class BrokerToOwnerGateway implements IMessageReceiver {
         rpcServer = new RPCServer();
         CallBack callBackCreateAuctionRoom = message -> RPC_createAuctionRoom(message);
         rpcServer.setup(ChannelNames.RPC_CREATEAUCTIONROOM,  callBackCreateAuctionRoom);
-        messageReceiver = new MessageReceiver(ChannelNames.OWNERTOBROKERNEWAUCTION, this);
+        messageReceiver = new MessageReceiver();
+        CallBack callBackAuctionReceived = new CallBack() {
+            @Override
+            public String returnMessage(String message) {
+                auctionReceived(message);
+                return "";
+            }
+        };
+        messageReceiver.setup(ChannelNames.OWNERTOBROKERNEWAUCTION, callBackAuctionReceived);
         messageSender = new MessageSender();
     }
 
@@ -74,8 +81,7 @@ public class BrokerToOwnerGateway implements IMessageReceiver {
         return "";
     }
 
-    @Override
-    public void messageReceived(String serializedAuction) {
+    private void auctionReceived(String serializedAuction) {
         try {
             Auction auction = auctionSerializationHandler.deserialize(serializedAuction);
             auctionBroker.addAuction(auction);

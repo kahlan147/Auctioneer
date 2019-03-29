@@ -1,4 +1,4 @@
-package messaging;
+package messaging.RequestReply;
 
 import Classes.CallBack;
 import com.rabbitmq.client.Channel;
@@ -14,36 +14,35 @@ import java.util.concurrent.TimeoutException;
  */
 public class MessageReceiver {
 
-    private IMessageReceiver messageReceiver;
+    private Channel channel;
 
-    private static String QUEUE_NAME;
-
-
-    public MessageReceiver(String queueName, IMessageReceiver messageReceiver){
-        QUEUE_NAME = queueName;
-        this.messageReceiver = messageReceiver;
-        setup();
-    }
-
-    private void setup(){
+    public MessageReceiver(){
         try {
             ConnectionFactory factory = new ConnectionFactory();
             factory.setHost("localhost");
             Connection connection = factory.newConnection();
-            Channel channel = connection.createChannel();
+            channel = connection.createChannel();
+        }
+        catch (IOException | TimeoutException e) {
+            e.printStackTrace();
+        }
+    }
 
-            channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+    public void setup(String queueName, CallBack callBack){
+        try {
+
+            channel.queueDeclare(queueName, false, false, false, null);
             System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
 
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
                 String message = new String(delivery.getBody());
                 System.out.println(" [x] Received '" + message + "'");
-                messageReceiver.messageReceived(message);
+                callBack.returnMessage(message);
             };
-            channel.basicConsume(QUEUE_NAME, true, deliverCallback, consumerTag -> {
+            channel.basicConsume(queueName, true, deliverCallback, consumerTag -> {
             });
         }
-        catch(IOException | TimeoutException e){
+        catch(IOException e){
             e.printStackTrace();
         }
     }
