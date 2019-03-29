@@ -1,6 +1,6 @@
-package messaging.RPC.CreateAuctionRoom;
+package messaging.RPC;
 
-import AuctionOwner.Backend.AuctionOwnerGateway;
+import Classes.CallBack;
 import com.rabbitmq.client.*;
 
 import java.io.IOException;
@@ -8,24 +8,19 @@ import java.util.UUID;
 import java.util.concurrent.TimeoutException;
 
 /**
- * Created by Niels Verheijen on 14/03/2019.
+ * Created by Niels Verheijen on 18/03/2019.
  */
-public class RPCCreateAuctionRoomClient {
+public class RPCClient {
 
-    private Connection connection;
     private Channel channel;
-    private String requestQueueName;
 
-    private AuctionOwnerGateway auctionOwnerGateway;
 
-    public RPCCreateAuctionRoomClient(String queue, AuctionOwnerGateway auctionOwnerGateway){
-        this.auctionOwnerGateway = auctionOwnerGateway;
-        this.requestQueueName = queue;
+    public RPCClient(){
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
 
         try {
-            connection = factory.newConnection();
+            Connection connection = factory.newConnection();
             channel = connection.createChannel();
         }
         catch(IOException | TimeoutException e){
@@ -33,7 +28,11 @@ public class RPCCreateAuctionRoomClient {
         }
     }
 
-    public String call(String message){
+    public void call(String requestQueueName, CallBack callBack){
+        call(requestQueueName, callBack, "");
+    }
+
+    public void call(String requestQueueName, CallBack callBack, String message){
         try {
             final String corrId = UUID.randomUUID().toString();
 
@@ -47,23 +46,18 @@ public class RPCCreateAuctionRoomClient {
             channel.basicPublish("", requestQueueName, props, message.getBytes("UTF-8"));
 
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
-                String serializedAuctionRoom = new String(delivery.getBody(), "UTF-8");
-                System.out.println(" [x] Received '" + serializedAuctionRoom + "'");
-                auctionOwnerGateway.auctionRoomCreated(serializedAuctionRoom);
+                String serializedRooms = new String(delivery.getBody(), "UTF-8");
+                System.out.println(" [x] Received '" + serializedRooms + "'");
+                callBack.returnMessage(serializedRooms);
+                //auctionClientGateway.roomsReceived(serializedRooms);
             };
             channel.basicConsume(replyQueueName, true, deliverCallback, consumerTag -> {
             });
-            return replyQueueName;
-
         }
         catch(IOException e)
         {
             e.printStackTrace();
         }
-        return "";
     }
 
-    public void close() throws IOException {
-        connection.close();
-    }
 }

@@ -1,17 +1,14 @@
 package AuctionOwner.Backend;
 
-import Classes.Auction;
-import Classes.AuctionRoom;
-import Classes.ChannelNames;
-import Classes.ISubscriberGateway;
+import Classes.*;
 import Serializer.AuctionRoomSerializationHandler;
 import Serializer.AuctionSerializationHandler;
-import messaging.IMessageReceiver;
-import messaging.MessageReceiver;
-import messaging.MessageSender;
+import messaging.RequestReply.MessageReceiver;
+import messaging.RequestReply.MessageSender;
 import messaging.PublishSubscribe.MessageSubscriber;
-import messaging.RPC.CreateAuctionRoom.RPCCreateAuctionRoomClient;
+import messaging.RPC.RPCClient;
 
+import javax.security.auth.callback.Callback;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,16 +16,16 @@ import java.util.List;
 /**
  * Created by Niels Verheijen on 15/03/2019.
  */
-public class AuctionOwnerGateway implements ISubscriberGateway, IMessageReceiver {
+public class AuctionOwnerGateway {
 
     private AuctionOwner auctionOwner;
     private AuctionSerializationHandler auctionSerializationHandler;
     private AuctionRoomSerializationHandler auctionRoomSerializationHandler;
 
-    private RPCCreateAuctionRoomClient rpcCreateAuctionRoomClient;
+    private RPCClient rpcCreateAuctionRoomClient;
     private MessageSubscriber messageSubscriber;
     private MessageSender messageSender;
-    private List<MessageReceiver> messageReceivers;
+    private MessageReceiver messageReceiver;
 
     public AuctionOwnerGateway(AuctionOwner auctionOwner){
         this.auctionOwner = auctionOwner;
@@ -38,16 +35,30 @@ public class AuctionOwnerGateway implements ISubscriberGateway, IMessageReceiver
     }
 
     private void setupChannels(){
-        messageSubscriber = new MessageSubscriber(this);
-        messageSubscriber.createNewChannel(ChannelNames.TIMEPASSEDCHANNEL);
-        rpcCreateAuctionRoomClient = new RPCCreateAuctionRoomClient(ChannelNames.RPC_CREATEAUCTIONROOM, this);
+        messageSubscriber = new MessageSubscriber();
+        CallBack callBackTimeReceived = new CallBack() {
+            @Override
+            public String returnMessage(String message) {
+                timeReceived(message);
+                return "";
+            }
+        };
+        messageSubscriber.createNewChannel(ChannelNames.TIMEPASSEDCHANNEL, callBackTimeReceived);
+        rpcCreateAuctionRoomClient = new RPCClient();
         messageSender = new MessageSender();
         messageSender.createQueue(ChannelNames.OWNERTOBROKERNEWAUCTION);
-        messageReceivers = new ArrayList<MessageReceiver>();
+        messageReceiver = new MessageReceiver();
     }
 
     public void RPC_RequestNewAuctionRoom(String name){
-        rpcCreateAuctionRoomClient.call(name);
+        CallBack callBackAuctionRoomCreated = new CallBack() {
+            @Override
+            public String returnMessage(String message) {
+                auctionRoomCreated(message);
+                return "";
+            }
+        };
+        rpcCreateAuctionRoomClient.call(ChannelNames.RPC_CREATEAUCTIONROOM, callBackAuctionRoomCreated, name);
     }
 
     public void AddToAuction(Auction auction){
@@ -60,26 +71,30 @@ public class AuctionOwnerGateway implements ISubscriberGateway, IMessageReceiver
         }
     }
 
-    public void auctionRoomCreated(String message) {
+    private void auctionRoomCreated(String message) {
         try {
             AuctionRoom auctionRoom = auctionRoomSerializationHandler.deserialize(message);
             auctionOwner.addNewAuctionRoom(auctionRoom);
-            MessageReceiver messageReceiver = new MessageReceiver(auctionRoom.getOwnerReplyChannel(), this);
-            messageReceivers.add(messageReceiver);
+            CallBack callBackAuctionReceived = new CallBack() {
+                @Override
+                public String returnMessage(String message) {
+                    auctionReceived(message);
+                    return "";
+                }
+            };
+            messageReceiver.setup(auctionRoom.getOwnerReplyChannel(), callBackAuctionReceived);
         }
         catch(IOException e){
             e.printStackTrace();
         }
     }
 
-    @Override
-    public void timeReceived(String message) {
+    private void timeReceived(String message) {
         int newTime = Integer.parseInt(message);
         auctionOwner.timePassed(newTime);
     }
 
-    @Override
-    public void auctionReceived(String message) {
+    private void auctionReceived(String message) {
         try{
             Auction auction = auctionSerializationHandler.deserialize(message);
             auctionOwner.addAuctionTo(auction);
@@ -87,10 +102,5 @@ public class AuctionOwnerGateway implements ISubscriberGateway, IMessageReceiver
         catch(IOException e){
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void messageReceived(String message) {
-        auctionReceived(message);
     }
 }

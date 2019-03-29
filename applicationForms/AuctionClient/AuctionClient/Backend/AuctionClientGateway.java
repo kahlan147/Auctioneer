@@ -1,14 +1,11 @@
 package AuctionClient.Backend;
 
-import Classes.Auction;
-import Classes.AuctionRoom;
-import Classes.ChannelNames;
-import Classes.ISubscriberGateway;
+import Classes.*;
 import Serializer.AuctionRoomListSerializationHandler;
 import Serializer.AuctionSerializationHandler;
-import messaging.MessageSender;
+import messaging.RequestReply.MessageSender;
 import messaging.PublishSubscribe.MessageSubscriber;
-import messaging.RPC.GetAuctionRooms.RPCGetAuctionRoomsClient;
+import messaging.RPC.RPCClient;
 
 import java.io.IOException;
 import java.util.List;
@@ -16,14 +13,14 @@ import java.util.List;
 /**
  * Created by Niels Verheijen on 18/03/2019.
  */
-public class AuctionClientGateway implements ISubscriberGateway {
+public class AuctionClientGateway{
 
     private AuctionClient auctionClient;
 
     private AuctionRoomListSerializationHandler auctionRoomListSerializationHandler;
     private AuctionSerializationHandler auctionSerializationHandler;
 
-    private RPCGetAuctionRoomsClient rpcGetAuctionRoomsClient;
+    private RPCClient rpcClient;
 
     private AuctionRoom connectedAuctionRoom;
     private MessageSubscriber messageSubscriber;
@@ -38,9 +35,16 @@ public class AuctionClientGateway implements ISubscriberGateway {
     }
 
     private void setupConnections(){
-        rpcGetAuctionRoomsClient = new RPCGetAuctionRoomsClient(this);
-        messageSubscriber = new MessageSubscriber(this);
-        messageSubscriber.createNewChannel(ChannelNames.TIMEPASSEDCHANNEL);
+        rpcClient = new RPCClient();
+        messageSubscriber = new MessageSubscriber();
+        CallBack callBackTimeReceived = new CallBack() {
+            @Override
+            public String returnMessage(String message) {
+                timeReceived(message);
+                return "";
+            }
+        };
+        messageSubscriber.createNewChannel(ChannelNames.TIMEPASSEDCHANNEL, callBackTimeReceived);
         messageSender = new MessageSender();
     }
 
@@ -50,11 +54,25 @@ public class AuctionClientGateway implements ISubscriberGateway {
     }
 
     public void requestAuctionRooms(){
-        rpcGetAuctionRoomsClient.requestAuctionRooms(ChannelNames.RPC_REQUESTAUCTIONROOMS);
+        CallBack callBackRoomsReceived = new CallBack() {
+            @Override
+            public String returnMessage(String message) {
+                roomsReceived(message);
+                return "";
+            }
+        };
+        rpcClient.call(ChannelNames.RPC_REQUESTAUCTIONROOMS, callBackRoomsReceived);
     }
 
     public void requestAuction(String auctionRoomId){
-        rpcGetAuctionRoomsClient.requestAuction(ChannelNames.RPC_REQUESTAUCTION, auctionRoomId);
+        CallBack callBackAuctionReceived = new CallBack() {
+            @Override
+            public String returnMessage(String message) {
+                auctionReceived(message);
+                return "";
+            }
+        };
+        rpcClient.call(ChannelNames.RPC_REQUESTAUCTION, callBackAuctionReceived, auctionRoomId);
     }
 
     public void roomsReceived(String serializedRooms){
@@ -68,7 +86,14 @@ public class AuctionClientGateway implements ISubscriberGateway {
     }
 
     public void connectToAuctionRoom(AuctionRoom auctionRoom){
-        messageSubscriber.createNewChannel(auctionRoom.getSubscribeChannel());
+        CallBack callBackAuctionReceived = new CallBack() {
+            @Override
+            public String returnMessage(String message) {
+                auctionReceived(message);
+                return "";
+            }
+        };
+        messageSubscriber.createNewChannel(auctionRoom.getSubscribeChannel(), callBackAuctionReceived);
         messageSender.createQueue(auctionRoom.getClientReplyChannel());
         requestAuction(auctionRoom.getId());
     }
@@ -87,13 +112,11 @@ public class AuctionClientGateway implements ISubscriberGateway {
         }
     }
 
-    @Override
-    public void timeReceived(String message) {
+    private void timeReceived(String message) {
         int newTime = Integer.parseInt(message);
         auctionClient.timePassed(newTime);
     }
 
-    @Override
     public void auctionReceived(String message) {
         try {
             Auction auction = auctionSerializationHandler.deserialize(message);
