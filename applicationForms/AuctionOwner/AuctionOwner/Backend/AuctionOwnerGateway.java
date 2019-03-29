@@ -4,10 +4,10 @@ import Classes.*;
 import Serializer.AuctionRoomSerializationHandler;
 import Serializer.AuctionSerializationHandler;
 import messaging.IMessageReceiver;
-import messaging.MessageReceiver;
-import messaging.MessageSender;
+import messaging.RequestReply.MessageReceiver;
+import messaging.RequestReply.MessageSender;
 import messaging.PublishSubscribe.MessageSubscriber;
-import messaging.RPC.CreateAuctionRoom.RPCCreateAuctionRoomClient;
+import messaging.RPC.RPCClient;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class AuctionOwnerGateway implements ISubscriberGateway, IMessageReceiver
     private AuctionSerializationHandler auctionSerializationHandler;
     private AuctionRoomSerializationHandler auctionRoomSerializationHandler;
 
-    private RPCCreateAuctionRoomClient rpcCreateAuctionRoomClient;
+    private RPCClient rpcCreateAuctionRoomClient;
     private MessageSubscriber messageSubscriber;
     private MessageSender messageSender;
     private List<MessageReceiver> messageReceivers;
@@ -37,14 +37,21 @@ public class AuctionOwnerGateway implements ISubscriberGateway, IMessageReceiver
     private void setupChannels(){
         messageSubscriber = new MessageSubscriber(this);
         messageSubscriber.createNewChannel(ChannelNames.TIMEPASSEDCHANNEL);
-        rpcCreateAuctionRoomClient = new RPCCreateAuctionRoomClient(ChannelNames.RPC_CREATEAUCTIONROOM, this);
+        rpcCreateAuctionRoomClient = new RPCClient();
         messageSender = new MessageSender();
         messageSender.createQueue(ChannelNames.OWNERTOBROKERNEWAUCTION);
         messageReceivers = new ArrayList<MessageReceiver>();
     }
 
     public void RPC_RequestNewAuctionRoom(String name){
-        rpcCreateAuctionRoomClient.call(name);
+        CallBack callBackAuctionRoomCreated = new CallBack() {
+            @Override
+            public String returnMessage(String message) {
+                auctionRoomCreated(message);
+                return "";
+            }
+        };
+        rpcCreateAuctionRoomClient.call(ChannelNames.RPC_CREATEAUCTIONROOM, callBackAuctionRoomCreated, name);
     }
 
     public void AddToAuction(Auction auction){

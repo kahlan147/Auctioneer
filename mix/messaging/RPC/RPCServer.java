@@ -1,4 +1,4 @@
-package messaging.RPC.GetAuctionRooms;
+package messaging.RPC;
 
 import AuctionBroker.Backend.AuctionBroker;
 import AuctionBroker.Backend.BrokerToClientGateway;

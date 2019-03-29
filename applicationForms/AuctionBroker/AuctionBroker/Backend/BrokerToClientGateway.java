@@ -7,9 +7,9 @@ import Classes.ChannelNames;
 import Serializer.AuctionRoomListSerializationHandler;
 import Serializer.AuctionSerializationHandler;
 import messaging.IMessageReceiver;
-import messaging.MessageReceiver;
+import messaging.RequestReply.MessageReceiver;
 import messaging.PublishSubscribe.MessagePublisher;
-import messaging.RPC.GetAuctionRooms.RPCServer;
+import messaging.RPC.RPCServer;
 
 import java.io.IOException;
 import java.util.List;

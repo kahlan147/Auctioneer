@@ -1,14 +1,11 @@
 package AuctionClient.Backend;
 
-import Classes.Auction;
-import Classes.AuctionRoom;
-import Classes.ChannelNames;
-import Classes.ISubscriberGateway;
+import Classes.*;
 import Serializer.AuctionRoomListSerializationHandler;
 import Serializer.AuctionSerializationHandler;
-import messaging.MessageSender;
+import messaging.RequestReply.MessageSender;
 import messaging.PublishSubscribe.MessageSubscriber;
-import messaging.RPC.GetAuctionRooms.RPCGetAuctionRoomsClient;
+import messaging.RPC.RPCClient;
 
 import java.io.IOException;
 import java.util.List;
@@ -23,7 +20,7 @@ public class AuctionClientGateway implements ISubscriberGateway {
     private AuctionRoomListSerializationHandler auctionRoomListSerializationHandler;
     private AuctionSerializationHandler auctionSerializationHandler;
 
-    private RPCGetAuctionRoomsClient rpcGetAuctionRoomsClient;
+    private RPCClient rpcClient;
 
     private AuctionRoom connectedAuctionRoom;
     private MessageSubscriber messageSubscriber;
@@ -38,7 +35,7 @@ public class AuctionClientGateway implements ISubscriberGateway {
     }
 
     private void setupConnections(){
-        rpcGetAuctionRoomsClient = new RPCGetAuctionRoomsClient(this);
+        rpcClient = new RPCClient();
         messageSubscriber = new MessageSubscriber(this);
         messageSubscriber.createNewChannel(ChannelNames.TIMEPASSEDCHANNEL);
         messageSender = new MessageSender();
@@ -50,11 +47,25 @@ public class AuctionClientGateway implements ISubscriberGateway {
     }
 
     public void requestAuctionRooms(){
-        rpcGetAuctionRoomsClient.requestAuctionRooms(ChannelNames.RPC_REQUESTAUCTIONROOMS);
+        CallBack callBackRoomsReceived = new CallBack() {
+            @Override
+            public String returnMessage(String message) {
+                roomsReceived(message);
+                return "";
+            }
+        };
+        rpcClient.call(ChannelNames.RPC_REQUESTAUCTIONROOMS, callBackRoomsReceived);
     }
 
     public void requestAuction(String auctionRoomId){
-        rpcGetAuctionRoomsClient.requestAuction(ChannelNames.RPC_REQUESTAUCTION, auctionRoomId);
+        CallBack callBackAuctionReceived = new CallBack() {
+            @Override
+            public String returnMessage(String message) {
+                auctionReceived(message);
+                return "";
+            }
+        };
+        rpcClient.call(ChannelNames.RPC_REQUESTAUCTION, callBackAuctionReceived, auctionRoomId);
     }
 
     public void roomsReceived(String serializedRooms){
