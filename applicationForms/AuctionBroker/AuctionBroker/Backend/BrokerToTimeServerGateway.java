@@ -22,7 +22,7 @@ public class BrokerToTimeServerGateway {
                 return "";
             }
         };
-        messageSubscriber.createNewChannel(ChannelNames.TIMEPASSEDCHANNEL, callBackTimeReceived);
+        messageSubscriber.createExchange(ChannelNames.TIMEPASSEDCHANNEL, callBackTimeReceived);
     }
 
     private void timeReceived(String message) {

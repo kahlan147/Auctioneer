@@ -3,13 +3,18 @@
   <component name="ChangeListManager">
     <list default="true" id="215e706d-afd2-4eec-8935-e88afa74a6a1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/applicationForms/AuctionBroker/AuctionBroker/Backend/BrokerToClientGateway.java" beforeDir="false" afterPath="$PROJECT_DIR$/applicationForms/AuctionBroker/AuctionBroker/Backend/BrokerToClientGateway.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/applicationForms/AuctionBroker/AuctionBroker/Backend/BrokerToOwnerGateway.java" beforeDir="false" afterPath="$PROJECT_DIR$/applicationForms/AuctionBroker/AuctionBroker/Backend/BrokerToOwnerGateway.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/applicationForms/AuctionBroker/AuctionBroker/Backend/BrokerToTimeServerGateway.java" beforeDir="false" afterPath="$PROJECT_DIR$/applicationForms/AuctionBroker/AuctionBroker/Backend/BrokerToTimeServerGateway.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/applicationForms/AuctionClient/AuctionClient/Backend/AuctionClientGateway.java" beforeDir="false" afterPath="$PROJECT_DIR$/applicationForms/AuctionClient/AuctionClient/Backend/AuctionClientGateway.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/applicationForms/AuctionOwner/AuctionOwner/Backend/AuctionOwner.java" beforeDir="false" afterPath="$PROJECT_DIR$/applicationForms/AuctionOwner/AuctionOwner/Backend/AuctionOwner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/applicationForms/AuctionOwner/AuctionOwner/Backend/AuctionOwnerGateway.java" beforeDir="false" afterPath="$PROJECT_DIR$/applicationForms/AuctionOwner/AuctionOwner/Backend/AuctionOwnerGateway.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mix/Classes/ISubscriberGateway.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/applicationForms/TimeServer/TimeServer/TimeServerGateway.java" beforeDir="false" afterPath="$PROJECT_DIR$/applicationForms/TimeServer/TimeServer/TimeServerGateway.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mix/messaging/PublishSubscribe/MessagePublisher.java" beforeDir="false" afterPath="$PROJECT_DIR$/mix/messaging/PublishSubscribe/MessagePublisher.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mix/messaging/PublishSubscribe/MessageSubscriber.java" beforeDir="false" afterPath="$PROJECT_DIR$/mix/messaging/PublishSubscribe/MessageSubscriber.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mix/messaging/RPC/RPCClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/mix/messaging/RPC/RPCClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mix/messaging/RPC/RPCServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/mix/messaging/RPC/RPCServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mix/messaging/RequestReply/MessageReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/mix/messaging/RequestReply/MessageReceiver.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,14 +24,28 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="false">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/applicationForms/AuctionOwner/AuctionOwner/Backend/AuctionOwner.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="92" column="46" lean-forward="true" selection-start-line="92" selection-start-column="46" selection-end-line="92" selection-end-column="46" />
+            <state relative-caret-position="176">
+              <caret line="11" column="44" lean-forward="true" selection-start-line="11" selection-start-column="44" selection-end-line="11" selection-end-column="44" />
               <folding>
                 <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mix/messaging/RPC/RPCClient.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="18" column="37" lean-forward="true" selection-start-line="18" selection-start-column="37" selection-end-line="18" selection-end-column="37" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#788#789#0" expanded="true" />
+                <element signature="e#840#841#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -35,8 +54,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/applicationForms/AuctionBroker/AuctionBroker/Backend/AuctionBroker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="158" selection-start-line="158" selection-end-line="158" />
+            <state relative-caret-position="-800">
+              <caret line="26" column="28" lean-forward="true" selection-start-line="26" selection-start-column="28" selection-end-line="26" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -44,10 +63,48 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mix/Classes/Auction.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="75" column="27" lean-forward="true" selection-start-line="75" selection-start-column="27" selection-end-line="75" selection-end-column="27" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mix/Serializer/JacksonDeserializers/AuctionDeserializer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="505">
+              <caret line="37" column="16" selection-start-line="37" selection-start-column="16" selection-end-line="37" selection-end-column="16" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#530#531#0" expanded="true" />
+                <element signature="e#556#557#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mix/messaging/RPC/RPCServer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="121">
+              <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/applicationForms/AuctionBroker/AuctionBroker/Backend/BrokerToOwnerGateway.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
+            <state relative-caret-position="1184">
               <caret line="85" selection-start-line="85" selection-end-line="85" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -114,11 +171,8 @@
         <option value="$PROJECT_DIR$/applicationForms/AuctionClient/AuctionClient/Frontend/AuctionClientController.java" />
         <option value="$PROJECT_DIR$/mix/Serializer/AuctionRoomListSerializationHandler.java" />
         <option value="$PROJECT_DIR$/mix/Serializer/JacksonDeserializers/AuctionRoomDeserializer.java" />
-        <option value="$PROJECT_DIR$/applicationForms/AuctionOwner/AuctionOwner/Backend/AuctionOwner.java" />
-        <option value="$PROJECT_DIR$/mix/messaging/PublishSubscribe/MessagePublisher.java" />
         <option value="$PROJECT_DIR$/mix/Serializer/AuctionRoomSerializationHandler.java" />
         <option value="$PROJECT_DIR$/mix/messaging/MessageSender.java" />
-        <option value="$PROJECT_DIR$/applicationForms/AuctionBroker/AuctionBroker/Backend/AuctionBroker.java" />
         <option value="$PROJECT_DIR$/mix/messaging/IMessageReceiver.java" />
         <option value="$PROJECT_DIR$/mix/Classes/ICallBack.java" />
         <option value="$PROJECT_DIR$/mix/Classes/CallBack.java" />
@@ -128,15 +182,18 @@
         <option value="$PROJECT_DIR$/mix/messaging/RPC/GetAuctionRooms/RPCGetAuctionRoomsClient.java" />
         <option value="$PROJECT_DIR$/mix/messaging/RPC/CreateAuctionRoom/RPCCreateAuctionRoomClient.java" />
         <option value="$PROJECT_DIR$/mix/messaging/RPC/GetAuctionRooms/RPCClient.java" />
-        <option value="$PROJECT_DIR$/mix/messaging/RequestReply/MessageReceiver.java" />
         <option value="$PROJECT_DIR$/applicationForms/AuctionBroker/AuctionBroker/Backend/BrokerToOwnerGateway.java" />
         <option value="$PROJECT_DIR$/applicationForms/AuctionBroker/AuctionBroker/Backend/BrokerToClientGateway.java" />
-        <option value="$PROJECT_DIR$/mix/messaging/RPC/RPCServer.java" />
-        <option value="$PROJECT_DIR$/mix/messaging/PublishSubscribe/MessageSubscriber.java" />
-        <option value="$PROJECT_DIR$/mix/messaging/RPC/RPCClient.java" />
         <option value="$PROJECT_DIR$/applicationForms/AuctionBroker/AuctionBroker/Backend/BrokerToTimeServerGateway.java" />
         <option value="$PROJECT_DIR$/applicationForms/AuctionOwner/AuctionOwner/Backend/AuctionOwnerGateway.java" />
         <option value="$PROJECT_DIR$/applicationForms/AuctionClient/AuctionClient/Backend/AuctionClientGateway.java" />
+        <option value="$PROJECT_DIR$/applicationForms/AuctionBroker/AuctionBroker/Backend/AuctionBroker.java" />
+        <option value="$PROJECT_DIR$/mix/messaging/PublishSubscribe/MessageSubscriber.java" />
+        <option value="$PROJECT_DIR$/mix/messaging/RequestReply/MessageReceiver.java" />
+        <option value="$PROJECT_DIR$/mix/messaging/RPC/RPCClient.java" />
+        <option value="$PROJECT_DIR$/mix/messaging/RPC/RPCServer.java" />
+        <option value="$PROJECT_DIR$/mix/messaging/PublishSubscribe/MessagePublisher.java" />
+        <option value="$PROJECT_DIR$/applicationForms/AuctionOwner/AuctionOwner/Backend/AuctionOwner.java" />
       </list>
     </option>
   </component>
@@ -189,85 +246,6 @@
             <path>
               <item name="AuctioneerApp" type="b2602c69:ProjectViewProjectNode" />
               <item name="Auctioneer" type="462c0819:PsiDirectoryNode" />
-              <item name="applicationForms" type="462c0819:PsiDirectoryNode" />
-              <item name="AuctionBroker" type="462c0819:PsiDirectoryNode" />
-              <item name="AuctionBroker" type="462c0819:PsiDirectoryNode" />
-              <item name="Frontend" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AuctioneerApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Auctioneer" type="462c0819:PsiDirectoryNode" />
-              <item name="applicationForms" type="462c0819:PsiDirectoryNode" />
-              <item name="AuctionClient" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AuctioneerApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Auctioneer" type="462c0819:PsiDirectoryNode" />
-              <item name="applicationForms" type="462c0819:PsiDirectoryNode" />
-              <item name="AuctionClient" type="462c0819:PsiDirectoryNode" />
-              <item name="AuctionClient" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AuctioneerApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Auctioneer" type="462c0819:PsiDirectoryNode" />
-              <item name="applicationForms" type="462c0819:PsiDirectoryNode" />
-              <item name="AuctionClient" type="462c0819:PsiDirectoryNode" />
-              <item name="AuctionClient" type="462c0819:PsiDirectoryNode" />
-              <item name="Backend" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AuctioneerApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Auctioneer" type="462c0819:PsiDirectoryNode" />
-              <item name="applicationForms" type="462c0819:PsiDirectoryNode" />
-              <item name="AuctionClient" type="462c0819:PsiDirectoryNode" />
-              <item name="AuctionClient" type="462c0819:PsiDirectoryNode" />
-              <item name="Frontend" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AuctioneerApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Auctioneer" type="462c0819:PsiDirectoryNode" />
-              <item name="applicationForms" type="462c0819:PsiDirectoryNode" />
-              <item name="AuctionOwner" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AuctioneerApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Auctioneer" type="462c0819:PsiDirectoryNode" />
-              <item name="applicationForms" type="462c0819:PsiDirectoryNode" />
-              <item name="AuctionOwner" type="462c0819:PsiDirectoryNode" />
-              <item name="AuctionOwner" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AuctioneerApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Auctioneer" type="462c0819:PsiDirectoryNode" />
-              <item name="applicationForms" type="462c0819:PsiDirectoryNode" />
-              <item name="AuctionOwner" type="462c0819:PsiDirectoryNode" />
-              <item name="AuctionOwner" type="462c0819:PsiDirectoryNode" />
-              <item name="Backend" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AuctioneerApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Auctioneer" type="462c0819:PsiDirectoryNode" />
-              <item name="applicationForms" type="462c0819:PsiDirectoryNode" />
-              <item name="AuctionOwner" type="462c0819:PsiDirectoryNode" />
-              <item name="AuctionOwner" type="462c0819:PsiDirectoryNode" />
-              <item name="Frontend" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AuctioneerApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Auctioneer" type="462c0819:PsiDirectoryNode" />
-              <item name="applicationForms" type="462c0819:PsiDirectoryNode" />
-              <item name="TimeServer" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AuctioneerApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Auctioneer" type="462c0819:PsiDirectoryNode" />
-              <item name="applicationForms" type="462c0819:PsiDirectoryNode" />
-              <item name="TimeServer" type="462c0819:PsiDirectoryNode" />
-              <item name="TimeServer" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AuctioneerApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Auctioneer" type="462c0819:PsiDirectoryNode" />
               <item name="mix" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -294,6 +272,13 @@
               <item name="Auctioneer" type="462c0819:PsiDirectoryNode" />
               <item name="mix" type="462c0819:PsiDirectoryNode" />
               <item name="messaging" type="462c0819:PsiDirectoryNode" />
+              <item name="RequestReply" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AuctioneerApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Auctioneer" type="462c0819:PsiDirectoryNode" />
+              <item name="mix" type="462c0819:PsiDirectoryNode" />
+              <item name="messaging" type="462c0819:PsiDirectoryNode" />
               <item name="RPC" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -301,13 +286,6 @@
               <item name="Auctioneer" type="462c0819:PsiDirectoryNode" />
               <item name="mix" type="462c0819:PsiDirectoryNode" />
               <item name="Serializer" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AuctioneerApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Auctioneer" type="462c0819:PsiDirectoryNode" />
-              <item name="mix" type="462c0819:PsiDirectoryNode" />
-              <item name="Serializer" type="462c0819:PsiDirectoryNode" />
-              <item name="JacksonDeserializers" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="AuctioneerApp" type="b2602c69:ProjectViewProjectNode" />
@@ -326,7 +304,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553891880687" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554054050145" />
     <property name="last_opened_file_path" value="$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.9.4/jackson-databind-2.9.4.jar!/" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -527,12 +505,13 @@
       <workItem from="1553672312754" duration="10559000" />
       <workItem from="1553713084916" duration="3953000" />
       <workItem from="1553788636871" duration="1224000" />
-      <workItem from="1553883029515" duration="7890000" />
+      <workItem from="1553883029515" duration="8090000" />
+      <workItem from="1554052496093" duration="1312000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="178007000" />
+    <option name="totallyTimeSpent" value="179519000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -547,7 +526,7 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22013423" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22348994" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -555,9 +534,9 @@
       <window_info id="UI Designer" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.04249292" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.47875354" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.23937677" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.2733711" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.2733711" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3286119" />
@@ -567,7 +546,7 @@
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="11" />
       <window_info anchor="bottom" id="Messages" order="12" weight="0.3286119" />
-      <window_info anchor="bottom" id="Statistic" order="13" weight="0.19263457" />
+      <window_info anchor="bottom" id="Statistic" order="13" weight="0.47025496" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -675,12 +654,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/applicationForms/AuctionClient/AuctionClient/Frontend/AuctionClient.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="242">
           <caret line="24" column="19" lean-forward="true" selection-start-line="24" selection-start-column="19" selection-end-line="24" selection-end-column="19" />
         </state>
       </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="jar://$USER_HOME$/Downloads/amqp-client-5.5.1.jar!/com/rabbitmq/client/Channel.class">
       <provider selected="true" editor-type-id="text-editor">
@@ -707,12 +686,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/applicationForms/AuctionOwner/AuctionOwner/Frontend/AuctionOwner.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="64">
           <caret line="4" column="25" lean-forward="true" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
         </state>
       </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="file://$PROJECT_DIR$/applicationForms/AuctionOwner/AuctionOwner/Frontend/AuctionOwnerController.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -763,38 +742,6 @@
             <element signature="imports" expanded="true" />
             <element signature="method#setChannels#0;class#AuctionRoom#0" />
             <element signature="method#AuctionRoom#0;class#AuctionRoom#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mix/Classes/Auction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1072">
-          <caret line="79" column="47" lean-forward="true" selection-start-line="79" selection-start-column="47" selection-end-line="79" selection-end-column="47" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mix/messaging/PublishSubscribe/MessagePublisher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mix/Serializer/JacksonDeserializers/AuctionDeserializer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#530#531#0" expanded="true" />
-            <element signature="e#556#557#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -863,60 +810,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mix/messaging/RPC/CreateAuctionRoom/RPCCreateAuctionRoomServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="19" column="23" lean-forward="true" selection-start-line="19" selection-start-column="23" selection-end-line="19" selection-end-column="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mix/messaging/RPC/CreateAuctionRoom/RPCCreateAuctionRoomClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="35" column="4" selection-start-line="35" selection-start-column="4" selection-end-line="35" selection-end-column="4" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mix/messaging/IMessageReceiver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mix/messaging/RequestReply/MessageSender.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="15" column="28" lean-forward="true" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mix/messaging/RequestReply/MessageReceiver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/mix/messaging/RPC/CreateAuctionRoom/RPCCreateAuctionRoomServer.java" />
+    <entry file="file://$PROJECT_DIR$/mix/messaging/RPC/CreateAuctionRoom/RPCCreateAuctionRoomClient.java" />
+    <entry file="file://$PROJECT_DIR$/mix/messaging/IMessageReceiver.java" />
     <entry file="file://$PROJECT_DIR$/applicationForms/AuctionBroker/AuctionBroker/Frontend/AuctionBroker.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="160">
           <caret line="10" column="79" selection-start-line="10" selection-start-column="79" selection-end-line="10" selection-end-column="79" />
         </state>
       </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="file://$PROJECT_DIR$/applicationForms/AuctionBroker/AuctionBroker/Frontend/AuctionBrokerController.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -949,48 +852,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mix/messaging/RPC/RPCServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="43" column="42" lean-forward="true" selection-start-line="43" selection-start-column="42" selection-end-line="43" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mix/Classes/ISubscriberGateway.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="5" column="28" lean-forward="true" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mix/messaging/PublishSubscribe/MessageSubscriber.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-262">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
-          <folding>
-            <element signature="e#616#617#0" expanded="true" />
-            <element signature="e#639#640#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/mix/Classes/ISubscriberGateway.java" />
     <entry file="file://$PROJECT_DIR$/applicationForms/AuctionBroker/AuctionBroker/Backend/BrokerToTimeServerGateway.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-96">
           <caret line="3" column="14" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mix/messaging/RPC/RPCClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="14" column="28" lean-forward="true" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1005,16 +871,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/applicationForms/AuctionBroker/AuctionBroker/Backend/AuctionBroker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="158" selection-start-line="158" selection-end-line="158" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/applicationForms/AuctionOwner/AuctionOwner/Backend/AuctionOwnerGateway.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="329">
@@ -1025,20 +881,114 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/applicationForms/AuctionOwner/AuctionOwner/Backend/AuctionOwner.java">
+    <entry file="file://$PROJECT_DIR$/applicationForms/AuctionBroker/AuctionBroker/Backend/BrokerToOwnerGateway.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="92" column="46" lean-forward="true" selection-start-line="92" selection-start-column="46" selection-end-line="92" selection-end-column="46" />
+        <state relative-caret-position="1184">
+          <caret line="85" selection-start-line="85" selection-end-line="85" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/applicationForms/AuctionBroker/AuctionBroker/Backend/BrokerToOwnerGateway.java">
+    <entry file="file://$PROJECT_DIR$/mix/messaging/RPC/RPCServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="85" selection-start-line="85" selection-end-line="85" />
+        <state relative-caret-position="121">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mix/messaging/PublishSubscribe/MessageSubscriber.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="34" column="9" lean-forward="true" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mix/messaging/PublishSubscribe/MessagePublisher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="416">
+          <caret line="49" column="80" lean-forward="true" selection-start-line="49" selection-start-column="80" selection-end-line="49" selection-end-column="80" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mix/messaging/RequestReply/MessageSender.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="15" column="28" lean-forward="true" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mix/messaging/RequestReply/MessageReceiver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="370">
+          <caret line="32" column="48" selection-start-line="32" selection-start-column="48" selection-end-line="32" selection-end-column="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mix/messaging/RPC/RPCClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="18" column="37" lean-forward="true" selection-start-line="18" selection-start-column="37" selection-end-line="18" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#788#789#0" expanded="true" />
+            <element signature="e#840#841#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applicationForms/AuctionBroker/AuctionBroker/Backend/AuctionBroker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-800">
+          <caret line="26" column="28" lean-forward="true" selection-start-line="26" selection-start-column="28" selection-end-line="26" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mix/Serializer/JacksonDeserializers/AuctionDeserializer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="505">
+          <caret line="37" column="16" selection-start-line="37" selection-start-column="16" selection-end-line="37" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#530#531#0" expanded="true" />
+            <element signature="e#556#557#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mix/Classes/Auction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="75" column="27" lean-forward="true" selection-start-line="75" selection-start-column="27" selection-end-line="75" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/applicationForms/AuctionOwner/AuctionOwner/Backend/AuctionOwner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="11" column="44" lean-forward="true" selection-start-line="11" selection-start-column="44" selection-end-line="11" selection-end-column="44" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

@@ -44,7 +44,7 @@ public class AuctionClientGateway{
                 return "";
             }
         };
-        messageSubscriber.createNewChannel(ChannelNames.TIMEPASSEDCHANNEL, callBackTimeReceived);
+        messageSubscriber.createExchange(ChannelNames.TIMEPASSEDCHANNEL, callBackTimeReceived);
         messageSender = new MessageSender();
     }
 
@@ -93,7 +93,7 @@ public class AuctionClientGateway{
                 return "";
             }
         };
-        messageSubscriber.createNewChannel(auctionRoom.getSubscribeChannel(), callBackAuctionReceived);
+        messageSubscriber.createExchange(auctionRoom.getSubscribeChannel(), callBackAuctionReceived);
         messageSender.createQueue(auctionRoom.getClientReplyChannel());
         requestAuction(auctionRoom.getId());
     }

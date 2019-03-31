@@ -12,11 +12,11 @@ public class TimeServerGateway {
 
     public TimeServerGateway(){
         messagePublisher = new MessagePublisher();
-        messagePublisher.createChannel(ChannelNames.TIMEPASSEDCHANNEL);
+        messagePublisher.createExchange(ChannelNames.TIMEPASSEDCHANNEL);
     }
 
     public void timeUpdated(int newTime){
-        messagePublisher.SendMessage(ChannelNames.TIMEPASSEDCHANNEL, Integer.toString(newTime));
+        messagePublisher.sendMessage(ChannelNames.TIMEPASSEDCHANNEL, Integer.toString(newTime));
     }
 
 

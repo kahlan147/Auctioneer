@@ -8,10 +8,7 @@ import messaging.RequestReply.MessageSender;
 import messaging.PublishSubscribe.MessageSubscriber;
 import messaging.RPC.RPCClient;
 
-import javax.security.auth.callback.Callback;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Niels Verheijen on 15/03/2019.
@@ -43,7 +40,7 @@ public class AuctionOwnerGateway {
                 return "";
             }
         };
-        messageSubscriber.createNewChannel(ChannelNames.TIMEPASSEDCHANNEL, callBackTimeReceived);
+        messageSubscriber.createExchange(ChannelNames.TIMEPASSEDCHANNEL, callBackTimeReceived);
         rpcCreateAuctionRoomClient = new RPCClient();
         messageSender = new MessageSender();
         messageSender.createQueue(ChannelNames.OWNERTOBROKERNEWAUCTION);
@@ -82,7 +79,7 @@ public class AuctionOwnerGateway {
                     return "";
                 }
             };
-            messageReceiver.setup(auctionRoom.getOwnerReplyChannel(), callBackAuctionReceived);
+            messageReceiver.createQueue(auctionRoom.getOwnerReplyChannel(), callBackAuctionReceived);
         }
         catch(IOException e){
             e.printStackTrace();

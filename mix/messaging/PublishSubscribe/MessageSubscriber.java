@@ -20,6 +20,9 @@ public class MessageSubscriber {
         setup();
     }
 
+    /**
+     * main createQueue, creates a channel.
+     */
     private void setup(){
         try {
             ConnectionFactory factory = new ConnectionFactory();
@@ -32,12 +35,16 @@ public class MessageSubscriber {
         }
     }
 
-    public void createNewChannel(String channelName, CallBack callBack){
+    /**
+     * Creates an exchange and listens on this.
+     * @param channelName
+     * @param callBack
+     */
+    public void createExchange(String channelName, CallBack callBack){
         try {
             channel.exchangeDeclare(channelName, "fanout");
             String queueName = channel.queueDeclare().getQueue();
             channel.queueBind(queueName, channelName, "");
-            //channels.add(channel);
 
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
                 String message = new String(delivery.getBody(), "UTF-8");

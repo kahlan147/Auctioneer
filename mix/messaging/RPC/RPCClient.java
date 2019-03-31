@@ -14,7 +14,6 @@ public class RPCClient {
 
     private Channel channel;
 
-
     public RPCClient(){
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
@@ -28,10 +27,21 @@ public class RPCClient {
         }
     }
 
+    /**
+     * calls a method on the server
+     * @param requestQueueName
+     * @param callBack
+     */
     public void call(String requestQueueName, CallBack callBack){
         call(requestQueueName, callBack, "");
     }
 
+    /**
+     * calls a method on the server.
+     * @param requestQueueName
+     * @param callBack
+     * @param message
+     */
     public void call(String requestQueueName, CallBack callBack, String message){
         try {
             final String corrId = UUID.randomUUID().toString();
@@ -49,7 +59,6 @@ public class RPCClient {
                 String serializedRooms = new String(delivery.getBody(), "UTF-8");
                 System.out.println(" [x] Received '" + serializedRooms + "'");
                 callBack.returnMessage(serializedRooms);
-                //auctionClientGateway.roomsReceived(serializedRooms);
             };
             channel.basicConsume(replyQueueName, true, deliverCallback, consumerTag -> {
             });

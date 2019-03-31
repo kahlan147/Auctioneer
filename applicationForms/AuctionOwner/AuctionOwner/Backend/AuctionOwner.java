@@ -19,7 +19,7 @@ public class AuctionOwner {
 
     private AuctionOwnerGateway auctionOwnerGateway;
     private int currentTime;
-    private int standardAuctionDuration = 30;
+    private final int standardAuctionDuration = 30;
 
     public AuctionOwner(AuctionOwnerController auctionOwnerController){
         this.auctionOwnerController = auctionOwnerController;
