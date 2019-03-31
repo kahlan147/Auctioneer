@@ -1,18 +1,12 @@
 package messaging.RPC;
 
-import AuctionBroker.Backend.AuctionBroker;
-import AuctionBroker.Backend.BrokerToClientGateway;
-import Classes.AuctionRoom;
 import Classes.CallBack;
-import Serializer.AuctionRoomSerializationHandler;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 
-import javax.security.auth.callback.Callback;
 import java.io.IOException;
-import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 /**
@@ -23,10 +17,10 @@ public class RPCServer {
     private Channel channel;
 
     public RPCServer(){
-        setup();
+        createQueue();
     }
 
-    private void setup(){
+    private void createQueue(){
         try{
             ConnectionFactory factory = new ConnectionFactory();
             factory.setHost("localhost");
@@ -38,7 +32,7 @@ public class RPCServer {
         }
     }
 
-    public void setup(String queueName, CallBack callBack){
+    public void createQueue(String queueName, CallBack callBack){
         try{
             channel.queueDeclare(queueName, false, false, false, null);
             channel.queuePurge(queueName);

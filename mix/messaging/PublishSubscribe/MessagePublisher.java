@@ -18,6 +18,9 @@ public class MessagePublisher {
         setup();
     }
 
+    /**
+     * Main createQueue, create channel.
+     */
     private void setup() {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
@@ -30,17 +33,27 @@ public class MessagePublisher {
         }
     }
 
-    public void createChannel(String exchangeName){
+    /**
+     * Creates an exchange to be used in the future for sending messages.
+     * @param exchangeName
+     */
+    public void createExchange(String exchangeName){
         try {
-            channel.exchangeDeclare(exchangeName, "fanout");
+            channel.exchangeDeclare(exchangeName, "fanout"); //declare a new exchange
         }
         catch(IOException e){
             e.printStackTrace();
         }
     }
 
-    public void SendMessage(String exchangeName, String message){
+    /**
+     * Sends a message over the exchange corresponding to the given exchangename
+     * @param exchangeName
+     * @param message
+     */
+    public void sendMessage(String exchangeName, String message){
         try {
+            //send a message on the given exchange.
             channel.basicPublish(exchangeName, "", null, message.getBytes("UTF-8"));
         }
         catch(IOException e){

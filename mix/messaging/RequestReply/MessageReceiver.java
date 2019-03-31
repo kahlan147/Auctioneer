@@ -28,9 +28,13 @@ public class MessageReceiver {
         }
     }
 
-    public void setup(String queueName, CallBack callBack){
+    /**
+     * creates a queue and listens on this queue for any incoming messages.
+     * @param queueName queue name to listen on.
+     * @param callBack interface to call when a messaage was received.
+     */
+    public void createQueue(String queueName, CallBack callBack){
         try {
-
             channel.queueDeclare(queueName, false, false, false, null);
             System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
 

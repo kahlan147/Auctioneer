@@ -47,13 +47,13 @@ public class BrokerToClientGateway {
         rpcServer = new RPCServer();
 
         CallBack callBackRequestAuctionRooms = message -> RPC_requestAuctionRooms();
-        rpcServer.setup(ChannelNames.RPC_REQUESTAUCTIONROOMS, callBackRequestAuctionRooms);
+        rpcServer.createQueue(ChannelNames.RPC_REQUESTAUCTIONROOMS, callBackRequestAuctionRooms);
 
         CallBack callBackRequestAuction = message -> RPC_requestAuction(message);
-        rpcServer.setup(ChannelNames.RPC_REQUESTAUCTION, callBackRequestAuction);
+        rpcServer.createQueue(ChannelNames.RPC_REQUESTAUCTION, callBackRequestAuction);
 
         messagePublisher = new MessagePublisher();
-        messagePublisher.createChannel(ChannelNames.TIMEPASSEDCHANNEL);
+        messagePublisher.createExchange(ChannelNames.TIMEPASSEDCHANNEL);
         messageReceiver = new MessageReceiver();
     }
 
@@ -63,7 +63,7 @@ public class BrokerToClientGateway {
      * @param auctionRoom
      */
     public void addPublisherToAuctionRoom(AuctionRoom auctionRoom){
-        messagePublisher.createChannel(auctionRoom.getSubscribeChannel());
+        messagePublisher.createExchange(auctionRoom.getSubscribeChannel());
         CallBack callBackBidReceived = new CallBack() {
             @Override
             public String returnMessage(String message) {
@@ -71,7 +71,7 @@ public class BrokerToClientGateway {
                 return "";
             }
         };
-        messageReceiver.setup(auctionRoom.getClientReplyChannel(), callBackBidReceived);
+        messageReceiver.createQueue(auctionRoom.getClientReplyChannel(), callBackBidReceived);
     }
 
     /**
@@ -82,7 +82,7 @@ public class BrokerToClientGateway {
     public void publishNewAuction(AuctionRoom auctionRoom){
         try{
             String serializedAuction = auctionSerializationHandler.serialize(auctionRoom.getCurrentAuction());
-            messagePublisher.SendMessage(auctionRoom.getSubscribeChannel(),serializedAuction);
+            messagePublisher.sendMessage(auctionRoom.getSubscribeChannel(),serializedAuction);
         }
         catch(IOException e){
             e.printStackTrace();

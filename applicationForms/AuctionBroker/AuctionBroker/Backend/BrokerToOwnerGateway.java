@@ -42,7 +42,7 @@ public class BrokerToOwnerGateway{
     private void setupConnections(){
         rpcServer = new RPCServer();
         CallBack callBackCreateAuctionRoom = message -> RPC_createAuctionRoom(message);
-        rpcServer.setup(ChannelNames.RPC_CREATEAUCTIONROOM,  callBackCreateAuctionRoom);
+        rpcServer.createQueue(ChannelNames.RPC_CREATEAUCTIONROOM,  callBackCreateAuctionRoom);
         messageReceiver = new MessageReceiver();
         CallBack callBackAuctionReceived = new CallBack() {
             @Override
@@ -51,7 +51,7 @@ public class BrokerToOwnerGateway{
                 return "";
             }
         };
-        messageReceiver.setup(ChannelNames.OWNERTOBROKERNEWAUCTION, callBackAuctionReceived);
+        messageReceiver.createQueue(ChannelNames.OWNERTOBROKERNEWAUCTION, callBackAuctionReceived);
         messageSender = new MessageSender();
     }
 
